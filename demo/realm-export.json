@@ -22,8 +22,9 @@
       "enabled": true,
       "publicClient": true,
       "standardFlowEnabled": true,
-      "redirectUris": ["https://remote.DOMAIN/*"],
-      "webOrigins": ["https://remote.DOMAIN"],
+      "implicitFlowEnabled": true,
+      "redirectUris": ["https://remote.127.0.0.1.nip.io/*"],
+      "webOrigins": ["https://remote.127.0.0.1.nip.io"],
       "attributes": { "post.logout.redirect.uris": "+" }
     },
     {
@@ -31,47 +32,47 @@
       "name": "Grafana",
       "enabled": true,
       "publicClient": false,
-      "secret": "change-me-grafana-oidc-secret",
+      "secret": "LEZIkQFELoKACO9smvvxzi08gNJL0FQ",
       "standardFlowEnabled": true,
-      "redirectUris": ["https://grafana.DOMAIN/login/generic_oauth"],
-      "webOrigins": ["https://grafana.DOMAIN"]
+      "redirectUris": ["https://grafana.127.0.0.1.nip.io/login/generic_oauth"],
+      "webOrigins": ["https://grafana.127.0.0.1.nip.io"]
     },
     {
       "clientId": "gitea",
       "name": "Gitea",
       "enabled": true,
       "publicClient": false,
-      "secret": "change-me-gitea-oidc-secret",
+      "secret": "SeQI42f4ab6kcU3tRMQ4xRHgoxIAwpz",
       "standardFlowEnabled": true,
-      "redirectUris": ["https://git.DOMAIN/user/oauth2/keycloak/callback"],
-      "webOrigins": ["https://git.DOMAIN"]
+      "redirectUris": ["https://git.127.0.0.1.nip.io/user/oauth2/keycloak/callback"],
+      "webOrigins": ["https://git.127.0.0.1.nip.io"]
     },
     {
       "clientId": "wikijs",
       "name": "Wiki.js",
       "enabled": true,
       "publicClient": false,
-      "secret": "change-me-wikijs-oidc-secret",
+      "secret": "ZFLpX7uRWsikG4UpZ4vsBX1qBBLXrYt",
       "standardFlowEnabled": true,
-      "redirectUris": ["https://wiki.DOMAIN/login/*/callback"],
-      "webOrigins": ["https://wiki.DOMAIN"]
+      "redirectUris": ["https://wiki.127.0.0.1.nip.io/login/*/callback"],
+      "webOrigins": ["https://wiki.127.0.0.1.nip.io"]
     },
     {
       "clientId": "nextcloud",
       "name": "Nextcloud",
       "enabled": true,
       "publicClient": false,
-      "secret": "change-me-nextcloud-oidc-secret",
+      "secret": "USiJ68yyW8vwnKMIQXZx0U0tTgvV9Dcy",
       "standardFlowEnabled": true,
-      "redirectUris": ["https://files.DOMAIN/apps/user_oidc/code"],
-      "webOrigins": ["https://files.DOMAIN"]
+      "redirectUris": ["https://files.127.0.0.1.nip.io/apps/user_oidc/code"],
+      "webOrigins": ["https://files.127.0.0.1.nip.io"]
     }
   ],
   "users": [
     {
       "username": "demo",
       "enabled": true,
-      "email": "demo@DOMAIN",
+      "email": "demo@127.0.0.1.nip.io",
       "firstName": "Demo",
       "lastName": "User",
       "credentials": [{ "type": "password", "value": "changeme", "temporary": true }],

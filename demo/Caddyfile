@@ -4,6 +4,13 @@
 # =============================================================================
 {
 	email {$ACME_EMAIL}
+	local_certs
+}
+
+# Platform home dashboard
+home.{$DOMAIN} {
+	root * /srv/home
+	file_server
 }
 
 # Identity provider (Keycloak)

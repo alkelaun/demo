@@ -45,6 +45,7 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+      - ./home:/srv/home:ro
     networks: [edge, back]
 
   # ------------------------------------------ shared Postgres (one DB per app)
@@ -79,7 +80,7 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
-      KC_HOSTNAME: id.${DOMAIN}
+      KC_HOSTNAME: https://id.${DOMAIN}
       KC_PROXY_HEADERS: xforwarded
       KC_HTTP_ENABLED: "true"
       KEYCLOAK_ADMIN: admin
@@ -103,6 +104,7 @@ services:
       GITEA__server__DOMAIN: git.${DOMAIN}
       GITEA__server__ROOT_URL: https://git.${DOMAIN}/
       GITEA__service__DISABLE_REGISTRATION: "true"
+      GITEA__security__INSTALL_LOCK: "true"
       # SSO: Site Admin → Authentication Sources → add OAuth2 (OpenID Connect)
       #      Issuer: https://id.${DOMAIN}/realms/ons   Client: gitea
     volumes:
@@ -167,10 +169,11 @@ services:
       NEXTCLOUD_TRUSTED_DOMAINS: files.${DOMAIN}
       OVERWRITEPROTOCOL: https
       TRUSTED_PROXIES: caddy
-      # WebDAV endpoint: https://files.${DOMAIN}/remote.php/dav/files/<user>/
-      # SSO: install the 'user_oidc' app, point it at .../realms/ons
+      DOMAIN: ${DOMAIN}
+      NEXTCLOUD_OIDC_SECRET: ${NEXTCLOUD_OIDC_SECRET}
     volumes:
       - nextcloud_data:/var/www/html
+      - ./nextcloud-oidc.sh:/docker-entrypoint-hooks.d/before-starting/10-oidc.sh:ro
     depends_on:
       postgres: { condition: service_healthy }
     networks: [back]
@@ -207,4 +210,44 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     <<: *restart
+    networks: [back]
+
+  # ------------------------------------------- one-shot OIDC provisioner (Wiki.js)
+  provisioner:
+    image: postgres:16
+    entrypoint: /bin/sh
+    command: /provisioner.sh
+    restart: "no"
+    environment:
+      DOMAIN: ${DOMAIN}
+      WIKIJS_DB_PASSWORD: ${WIKIJS_DB_PASSWORD}
+      WIKIJS_OIDC_SECRET: ${WIKIJS_OIDC_SECRET}
+    volumes:
+      - ./provisioner.sh:/provisioner.sh:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [back]
+
+  # ------------------------------------------- one-shot Gitea auth provisioner
+  gitea-provisioner:
+    image: gitea/gitea:1.22
+    entrypoint: /bin/sh
+    command: /gitea-provision.sh
+    user: git
+    restart: "no"
+    environment:
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: postgres:5432
+      GITEA__database__NAME: gitea
+      GITEA__database__USER: gitea
+      GITEA__database__PASSWD: ${GITEA_DB_PASSWORD}
+      GITEA__security__INSTALL_LOCK: "true"
+      GITEA_OIDC_SECRET: ${GITEA_OIDC_SECRET}
+    volumes:
+      - gitea_data:/data
+      - ./gitea-provision.sh:/gitea-provision.sh:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks: [back]

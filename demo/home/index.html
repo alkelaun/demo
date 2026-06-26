@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONS — Internal Platform</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d1117;
+      --surface:  #161b22;
+      --surface2: #21262d;
+      --border:   #30363d;
+      --text:     #e6edf3;
+      --muted:    #7d8590;
+      --subtle:   #484f58;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ───────────────────────────────────────────────────────── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #58a6ff 0%, #bf8cff 100%);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .logo-text h1 { font-size: 1rem; font-weight: 600; letter-spacing: -0.2px; }
+    .logo-text p  { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+
+    .header-badge {
+      margin-left: auto;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #3fb950;
+      flex-shrink: 0;
+    }
+
+    /* ── Main ─────────────────────────────────────────────────────────── */
+    main {
+      flex: 1;
+      padding: 2.5rem 2rem;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--subtle);
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    /* ── Cards ────────────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.375rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent, transparent);
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px var(--accent-dim);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+    }
+
+    .icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: var(--icon-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .card-meta { flex: 1; min-width: 0; }
+
+    .card-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .card-category {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .card-arrow {
+      font-size: 0.9rem;
+      color: var(--muted);
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.15s;
+      margin-top: 2px;
+    }
+
+    .card:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+    .card-desc {
+      font-size: 0.825rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-url {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--subtle);
+    }
+
+    .card-tag {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+      background: var(--icon-bg);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ── Divider ──────────────────────────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2rem 0 1rem;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-text {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--subtle);
+    }
+
+    /* ── Footer ───────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--subtle);
+    }
+
+    footer a { color: var(--subtle); text-decoration: none; }
+    footer a:hover { color: var(--muted); }
+
+    /* ── Colour themes ────────────────────────────────────────────────── */
+    .c-red    { --accent: #f78166; --accent-dim: rgba(247,129,102,.35); --icon-bg: rgba(247,129,102,.1); }
+    .c-blue   { --accent: #79c0ff; --accent-dim: rgba(121,192,255,.35); --icon-bg: rgba(121,192,255,.1); }
+    .c-orange { --accent: #ffa657; --accent-dim: rgba(255,166,87, .35); --icon-bg: rgba(255,166,87, .1); }
+    .c-green  { --accent: #56d364; --accent-dim: rgba(86,211,100,.35);  --icon-bg: rgba(86,211,100,.1); }
+    .c-sky    { --accent: #58a6ff; --accent-dim: rgba(88,166,255,.35);  --icon-bg: rgba(88,166,255,.1); }
+    .c-purple { --accent: #bf8cff; --accent-dim: rgba(191,140,255,.35); --icon-bg: rgba(191,140,255,.1); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🛡️</div>
+    <div class="logo-text">
+      <h1>Offline Network System</h1>
+      <p>Internal platform — authentication required</p>
+    </div>
+    <div class="header-badge">
+      <span class="dot"></span>
+      All services running
+    </div>
+  </header>
+
+  <main>
+    <p class="section-label">Platform Services</p>
+
+    <div class="grid">
+
+      <!-- Keycloak -->
+      <a class="card c-red" href="https://id.127.0.0.1.nip.io" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="icon">🔑</div>
+          <div class="card-meta">
+            <div class="card-name">Keycloak</div>
+            <div class="card-category">Identity &amp; SSO</div>
+          </div>
+          <div class="card-arrow">↗</div>
+        </div>
+        <div class="card-desc">
+          Single sign-on for all platform services. Manage users, groups, roles, and authentication policies.
+        </div>
+        <div class="card-footer">
+          <span class="card-url">id.127.0.0.1.nip.io</span>
+          <span class="card-tag">Admin</span>
+        </div>
+      </a>
+
+      <!-- Gitea -->
+      <a class="card c-blue" href="https://git.127.0.0.1.nip.io" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="icon">🐙</div>
+          <div class="card-meta">
+            <div class="card-name">Gitea</div>
+            <div class="card-category">Source Code</div>
+          </div>
+          <div class="card-arrow">↗</div>
+        </div>
+        <div class="card-desc">
+          Git repository hosting for source code and infrastructure-as-code. Self-hosted, lightweight, and fast.
+        </div>
+        <div class="card-footer">
+          <span class="card-url">git.127.0.0.1.nip.io</span>
+          <span class="card-tag">SSO</span>
+        </div>
+      </a>
+
+      <!-- Guacamole -->
+      <a class="card c-orange" href="https://remote.127.0.0.1.nip.io" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="icon">🖥️</div>
+          <div class="card-meta">
+            <div class="card-name">Guacamole</div>
+            <div class="card-category">Remote Access</div>
+          </div>
+          <div class="card-arrow">↗</div>
+        </div>
+        <div class="card-desc">
+          Clientless remote desktop gateway. Access SSH, RDP, and VNC sessions directly from the browser — no client required.
+        </div>
+        <div class="card-footer">
+          <span class="card-url">remote.127.0.0.1.nip.io</span>
+          <span class="card-tag">SSO</span>
+        </div>
+      </a>
+
+      <!-- Wiki.js -->
+      <a class="card c-green" href="https://wiki.127.0.0.1.nip.io" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="icon">📚</div>
+          <div class="card-meta">
+            <div class="card-name">Wiki.js</div>
+            <div class="card-category">Documentation</div>
+          </div>
+          <div class="card-arrow">↗</div>
+        </div>
+        <div class="card-desc">
+          Collaborative knowledge base and documentation platform. Markdown-based with full-text search and version history.
+        </div>
+        <div class="card-footer">
+          <span class="card-url">wiki.127.0.0.1.nip.io</span>
+          <span class="card-tag">SSO</span>
+        </div>
+      </a>
+
+      <!-- Nextcloud -->
+      <a class="card c-sky" href="https://files.127.0.0.1.nip.io" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="icon">☁️</div>
+          <div class="card-meta">
+            <div class="card-name">Nextcloud</div>
+            <div class="card-category">File Storage</div>
+          </div>
+          <div class="card-arrow">↗</div>
+        </div>
+        <div class="card-desc">
+          Shared file storage with WebDAV, sync clients, and collaborative document editing. Secure internal cloud storage.
+        </div>
+        <div class="card-footer">
+          <span class="card-url">files.127.0.0.1.nip.io</span>
+          <span class="card-tag">SSO</span>
+        </div>
+      </a>
+
+      <!-- Grafana -->
+      <a class="card c-purple" href="https://grafana.127.0.0.1.nip.io" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="icon">📊</div>
+          <div class="card-meta">
+            <div class="card-name">Grafana</div>
+            <div class="card-category">Monitoring</div>
+          </div>
+          <div class="card-arrow">↗</div>
+        </div>
+        <div class="card-desc">
+          Platform health dashboards powered by Prometheus. Monitor system metrics, container resource usage, and service uptime.
+        </div>
+        <div class="card-footer">
+          <span class="card-url">grafana.127.0.0.1.nip.io</span>
+          <span class="card-tag">SSO</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-text">Add-on Services</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="grid">
+
+      <!-- Jitsi -->
+      <a class="card c-green" href="https://meet.127.0.0.1.nip.io" target="_blank" rel="noopener"
+         style="opacity:0.5; pointer-events:none; cursor:default;">
+        <div class="card-top">
+          <div class="icon">🎥</div>
+          <div class="card-meta">
+            <div class="card-name">Jitsi Meet</div>
+            <div class="card-category">VoIP / Video</div>
+          </div>
+        </div>
+        <div class="card-desc">
+          Browser-based video conferencing and voice calls. Start with <code style="font-size:0.75rem;color:inherit">docker compose -f docker-compose.yml -f compose.comms.yml up -d</code>.
+        </div>
+        <div class="card-footer">
+          <span class="card-url">meet.127.0.0.1.nip.io</span>
+          <span class="card-tag">Disabled</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    <span>Offline Network System &mdash; Demo / Dev Stack</span>
+    <span>
+      <a href="https://id.127.0.0.1.nip.io/admin" target="_blank">Keycloak Admin</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://grafana.127.0.0.1.nip.io" target="_blank">Metrics</a>
+    </span>
+  </footer>
+
+</body>
+</html>
