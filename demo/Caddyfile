@@ -1,0 +1,44 @@
+# =============================================================================
+#  Caddy reverse proxy — automatic HTTPS (Let's Encrypt) for the demo stack.
+#  Point a wildcard DNS record *.DOMAIN at this server's public IP.
+# =============================================================================
+{
+	email {$ACME_EMAIL}
+}
+
+# Identity provider (Keycloak)
+id.{$DOMAIN} {
+	reverse_proxy keycloak:8080
+}
+
+# Source code + Infrastructure-as-Code (Gitea)
+git.{$DOMAIN} {
+	reverse_proxy gitea:3000
+}
+
+# Clientless remote-access gateway (Apache Guacamole)
+remote.{$DOMAIN} {
+	reverse_proxy guacamole:8080
+}
+
+# Wiki (Wiki.js)
+wiki.{$DOMAIN} {
+	reverse_proxy wikijs:3000
+}
+
+# File share / WebDAV (Nextcloud)
+files.{$DOMAIN} {
+	reverse_proxy nextcloud:80
+	redir /.well-known/carddav /remote.php/dav 301
+	redir /.well-known/caldav /remote.php/dav 301
+}
+
+# Dashboards (Grafana)
+grafana.{$DOMAIN} {
+	reverse_proxy grafana:3000
+}
+
+# VoIP / VTC (Jitsi) — only active when compose.comms.yml is layered in
+meet.{$DOMAIN} {
+	reverse_proxy jitsi-web:80
+}

@@ -1,0 +1,69 @@
+# =============================================================================
+#  Add-on: VoIP / VTC via Jitsi Meet (browser-based audio + video meetings).
+#  No dedicated PBX/VTC hardware — runs as containers on the same host.
+#  Layer onto the base stack:
+#     docker compose -f docker-compose.yml -f compose.comms.yml up -d
+#  Reach it at https://meet.${DOMAIN} (Caddy route already defined).
+#  Set the JICOFO_AUTH_PASSWORD / JVB_AUTH_PASSWORD / JITSI_SECRET in .env.
+# =============================================================================
+name: ons-demo
+
+services:
+  jitsi-web:
+    image: jitsi/web:stable
+    restart: unless-stopped
+    environment:
+      PUBLIC_URL: https://meet.${DOMAIN}
+      ENABLE_XMPP_WEBSOCKET: "1"
+      XMPP_DOMAIN: meet.jitsi
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_BOSH_URL_BASE: http://prosody:5280
+      XMPP_MUC_DOMAIN: muc.meet.jitsi
+      # Gate meetings behind SSO at the proxy, or enable Jitsi JWT auth here.
+    networks: [back]
+    depends_on: [prosody]
+
+  prosody:
+    image: jitsi/prosody:stable
+    restart: unless-stopped
+    environment:
+      XMPP_DOMAIN: meet.jitsi
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_MUC_DOMAIN: muc.meet.jitsi
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.jitsi
+      JICOFO_COMPONENT_SECRET: ${JITSI_SECRET}
+      JICOFO_AUTH_USER: focus
+      JICOFO_AUTH_PASSWORD: ${JICOFO_AUTH_PASSWORD}
+      JVB_AUTH_USER: jvb
+      JVB_AUTH_PASSWORD: ${JVB_AUTH_PASSWORD}
+    networks: [back]
+
+  jicofo:
+    image: jitsi/jicofo:stable
+    restart: unless-stopped
+    environment:
+      XMPP_DOMAIN: meet.jitsi
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.jitsi
+      XMPP_SERVER: prosody
+      JICOFO_COMPONENT_SECRET: ${JITSI_SECRET}
+      JICOFO_AUTH_USER: focus
+      JICOFO_AUTH_PASSWORD: ${JICOFO_AUTH_PASSWORD}
+    networks: [back]
+    depends_on: [prosody]
+
+  jvb:
+    image: jitsi/jvb:stable
+    restart: unless-stopped
+    ports:
+      - "10000:10000/udp"   # media (RTP) — open this UDP port on the firewall
+    environment:
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.jitsi
+      XMPP_SERVER: prosody
+      JVB_AUTH_USER: jvb
+      JVB_AUTH_PASSWORD: ${JVB_AUTH_PASSWORD}
+      JVB_BREWERY_MUC: jvbbrewery
+      PUBLIC_URL: https://meet.${DOMAIN}
+    networks: [back]
+    depends_on: [prosody]

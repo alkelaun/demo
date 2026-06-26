@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #e7eaef; font-family: 'IBM Plex Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  @page { size: letter; margin: 0; }
+  @media print {
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html, body { margin: 0; padding: 0; background: #fff; }
+    .doc { max-width: none !important; margin: 0 !important; padding: 0 0.7in !important; box-shadow: none !important; }
+    .hdr-space, .ftr-space { display: table-cell !important; height: 0.6in; }
+    h1, h2, h3, h4 { break-after: avoid; }
+    figure, table, tr, blockquote, .avoid-break { break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    .screen-only { display: none !important; }
+  }
+</style>
+</helmet>
+<main class="doc" style="--accent: {{accentColor}}; --paper: {{paper}}; --ink: {{ink}}; --muted: {{muted}}; --hairline: {{hairline}}; --panel: {{panel}}; --grid: {{grid}}; position: relative; box-sizing: border-box; max-width: 8.5in; margin: 0 auto; background: var(--paper, #fcfcfd); color: var(--ink, #1a1c22); padding: 64px clamp(22px, 5vw, 0.78in) 96px; box-shadow: 0 1px 2px rgba(20,30,50,.06), 0 18px 50px -28px rgba(20,30,50,.28); line-height: 1.62;">
+
+  <button class="screen-only" onClick="{{ printDoc }}" style="position: fixed; top: 18px; right: 18px; z-index: 50; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--accent, #2f5d8a); border: none; border-radius: 4px; padding: 9px 14px; cursor: pointer; box-shadow: 0 6px 16px -6px rgba(20,30,50,.5);">↧ Print / PDF</button>
+
+  <table class="doc-frame" role="presentation" style="width: 100%; table-layout: fixed; border-collapse: collapse;">
+    <thead><tr><td class="hdr-space" style="padding: 0; display: none;"></td></tr></thead>
+    <tbody><tr><td style="padding: 0;">
+
+      <!-- ============ COVER / HEADER ============ -->
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent, #2f5d8a); display: flex; gap: 14px; align-items: center;">
+        <span>Project Plan</span>
+        <span style="flex: 1; height: 1px; background: var(--hairline, #d9dce3);"></span>
+        <span style="color: var(--muted, #5b606b);">v1.0 · Rev A</span>
+      </div>
+      <h1 style="font-size: 38px; line-height: 1.08; font-weight: 700; letter-spacing: -.015em; margin: 16px 0 10px; text-wrap: balance;">Air-Gapped Network System</h1>
+      <p style="font-size: 18px; line-height: 1.45; color: var(--muted, #5b606b); margin: 0 0 22px; max-width: 36em; text-wrap: pretty;">A minimal, modern stack of IT services for a fully offline, multi-site environment — with defined layers, a strict build order, and a self-contained offline endpoint image.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--hairline, #d9dce3); border: 1px solid var(--hairline, #d9dce3); margin: 0 0 14px;">
+        <div style="background: var(--paper, #fcfcfd); padding: 12px 14px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted, #5b606b);">Prepared for</div><div style="font-size: 14px; font-weight: 600; margin-top: 3px;">Infrastructure Eng.</div></div>
+        <div style="background: var(--paper, #fcfcfd); padding: 12px 14px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted, #5b606b);">Scope</div><div style="font-size: 14px; font-weight: 600; margin-top: 3px;">250+ endpoints · multi-site</div></div>
+        <div style="background: var(--paper, #fcfcfd); padding: 12px 14px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted, #5b606b);">Connectivity</div><div style="font-size: 14px; font-weight: 600; margin-top: 3px;">Fully air-gapped</div></div>
+        <div style="background: var(--paper, #fcfcfd); padding: 12px 14px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted, #5b606b);">Date</div><div style="font-size: 14px; font-weight: 600; margin-top: 3px;">June 2026</div></div>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .06em; color: var(--muted, #5b606b); border-top: 2px solid var(--accent, #2f5d8a); padding-top: 8px;">CLASSIFICATION: INTERNAL · STATUS: FOR REVIEW · AUDIENCE: EXECUTIVE SUMMARY + TECHNICAL DETAIL</div>
+
+      <!-- ============ 1. EXECUTIVE SUMMARY ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 44px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">01</span><span>Executive summary</span></h2>
+      <p style="font-size: 15px; margin: 0 0 12px;">This plan delivers the <strong>smallest viable set of IT services</strong> to run a secure, multi-site network that never touches the public internet. It covers user accounts, authentication, authorization, logging, and auditing — and nothing that isn't required to operate them safely. Every component is modern, open-source, and chosen for being lightweight enough to run on commodity hardware while still scaling past 250 endpoints. This minimal set is the <strong>core platform</strong> — capability <em>feature packs</em> (collaboration, communications, developer services) bolt on later without re-architecting it.</p>
+      <p style="font-size: 15px; margin: 0 0 12px;">Services are organized into <strong>eight layers</strong>, built strictly bottom-up: each layer depends only on the ones below it, so the network is provably correct at every step. A clear distinction is drawn between the <em>always-connected core</em> (the network and its services) and an <em>optional offline endpoint image</em> — a hardened, self-contained build that operates on a laptop with no network connection at all, then reconciles its accounts and audit trail when it next rejoins.</p>
+      <p style="font-size: 15px; margin: 0 0 12px;">The build is delivered in tiers. <strong>Tier&nbsp;0 (core)</strong> is the eight-layer foundation that runs accounts, auth, logging and audit. <strong>Tier&nbsp;1+ (feature packs)</strong> add a wiki, webmail, file sharing, and VoIP/VTC as self-contained services on the same platform — adopt only what each site needs. A lightweight, internet-connected <strong>demo/dev twin</strong> (5–15 users, Docker Compose) mirrors the production tools for evaluation and development; its files are in Appendix&nbsp;B.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0 6px;">
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 14px; background: var(--panel, #f4f6f9);"><div style="font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1;">8</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted, #5b606b); margin-top: 6px;">Core layers</div></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 14px; background: var(--panel, #f4f6f9);"><div style="font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1;">6–9<span style="font-size: 15px; font-weight: 500;"> mo</span></div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted, #5b606b); margin-top: 6px;">To go-live</div></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 14px; background: var(--panel, #f4f6f9);"><div style="font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1;">$0</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted, #5b606b); margin-top: 6px;">Software license</div></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 14px; background: var(--panel, #f4f6f9);"><div style="font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1;">250+</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted, #5b606b); margin-top: 6px;">Endpoints</div></div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--muted, #5b606b); margin: 4px 0 0; font-style: italic;">All platform software is open-source (zero license cost). Spend is hardware, optional vendor support, and professional services — see §11.</p>
+
+      <!-- ============ 2. PRINCIPLES & CONSTRAINTS ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">02</span><span>Design principles &amp; constraints</span></h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 13px 15px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">P1 · AIR-GAPPED BY DEFAULT</div><p style="font-size: 13.5px; margin: 6px 0 0;">No internet egress, ever. All software, OS packages, and container images enter through a controlled offline mirror. Nothing assumes a public endpoint (no public NTP, no public CA, no SaaS).</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 13px 15px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">P2 · MINIMAL SERVICE SET</div><p style="font-size: 13.5px; margin: 6px 0 0;">Only what's needed to run accounts, auth, authz, logging, and auditing — plus the foundation those require. No optional service ships without a named owner and a reason.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 13px 15px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">P3 · LIGHTWEIGHT &amp; MODERN</div><p style="font-size: 13.5px; margin: 6px 0 0;">Single-binary or single-container tools preferred (K3s over full K8s, lldap over OpenLDAP, step-ca over EJBCA). Declarative, reproducible, low operational burden.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 13px 15px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">P4 · STRICTLY LAYERED</div><p style="font-size: 13.5px; margin: 6px 0 0;">Each layer depends only on layers beneath it. Build, test, and harden bottom-up; never stand up a service before its dependencies exist and are verified.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 13px 15px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">P5 · PARTIAL OFFLINE, NOT FULL</div><p style="font-size: 13.5px; margin: 6px 0 0;">The core network is always-on within the air-gap. "Offline" applies to a <em>subset</em>: a self-contained endpoint image that runs disconnected and reconciles on return.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 13px 15px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">P6 · AUDIT EVERYTHING</div><p style="font-size: 13.5px; margin: 6px 0 0;">Every authentication, authorization decision, and administrative action is logged centrally and made tamper-evident. Audit is a first-class layer, not an afterthought.</p></div>
+      </div>
+
+      <!-- ============ 3. ARCHITECTURE OVERVIEW ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">03</span><span>Architecture overview</span></h2>
+      <p style="font-size: 15px; margin: 0 0 14px;">The original five-layer brief is preserved and refined into <strong>eight</strong>: the hardware layer is split into <em>facility</em> and <em>compute fabric</em>; <em>source control &amp; configuration</em> is promoted to its own layer (Gitea, the registry, and GitOps) so the system has a single, auditable source of truth; and a dedicated <em>Observability &amp; Audit</em> layer designs logging and auditing in rather than bolting them on. Two concerns — <strong>Backup &amp; DR</strong> and <strong>Security &amp; Hardening</strong> — cut across all eight.</p>
+
+      <figure class="avoid-break" style="margin: 6px 0 8px; padding: 18px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9); background-image: var(--grid, none); background-size: 22px 22px;">
+        <div style="display: flex; gap: 12px; align-items: stretch;">
+          <!-- left rail: build order -->
+          <div style="display: flex; flex-direction: column; align-items: center; width: 26px; color: var(--accent, #2f5d8a);">
+            <span style="font-size: 15px;">▲</span>
+            <span style="flex: 1; width: 2px; background: var(--accent, #2f5d8a); margin: 4px 0;"></span>
+            <span style="writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;">Build order</span>
+            <span style="flex: 1; width: 2px; background: var(--accent, #2f5d8a); margin: 4px 0;"></span>
+          </div>
+          <!-- stack -->
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L8</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Access &amp; Endpoints</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">Guacamole · zero clients · offline image</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L7</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Observability &amp; Audit</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">Loki · Prometheus · Zabbix · Wazuh</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L6</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Identity &amp; Authz</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">lldap · Keycloak · MFA</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L5</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Supply Chain &amp; Config</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">registry · mirror · Gitea · GitOps</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L4</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Compute Platform</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">Proxmox VE · K3s</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L3</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Network Foundation</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">DHCP · DNS · NTP · PKI</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L2</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Hardware &amp; Storage</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">servers · Ceph · switching</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-left: 4px solid var(--accent, #2f5d8a); padding: 8px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: var(--accent, #2f5d8a); width: 22px;">L1</span><span style="font-weight: 600; font-size: 13px; width: 150px;">Facility &amp; Physical</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); flex: 1;">power · cooling · cabling · access</span></div>
+          </div>
+          <!-- right rail: cross-cutting -->
+          <div style="display: flex; gap: 6px; width: 58px;">
+            <div style="flex: 1; border: 1px dashed var(--accent, #2f5d8a); background: var(--paper, #fcfcfd); display: flex; align-items: center; justify-content: center;"><span style="writing-mode: vertical-rl; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent, #2f5d8a);">Backup &amp; DR</span></div>
+            <div style="flex: 1; border: 1px dashed var(--accent, #2f5d8a); background: var(--paper, #fcfcfd); display: flex; align-items: center; justify-content: center;"><span style="writing-mode: vertical-rl; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent, #2f5d8a);">Security &amp; Hardening</span></div>
+          </div>
+        </div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 12px; letter-spacing: .03em;">FIG 1 — Eight-layer stack. Build bottom-up (L1→L8); every layer depends only on those beneath it. Dashed columns are cross-cutting concerns applied at every layer.</figcaption>
+      </figure>
+      <p style="font-size: 12.5px; color: var(--muted, #5b606b); margin: 6px 0 0;"><strong style="color: var(--ink, #1a1c22);">Mapping to the original brief:</strong> Layer&nbsp;1 (HW) → L1+L2 · Layer&nbsp;2 (DHCP/DNS/NTP) → L3 · Layer&nbsp;3 (Servers) → L4 · Layer&nbsp;4 (Auth) → L6 · Layer&nbsp;5 (Endpoints) → L8. New: L5 Supply Chain &amp; Config, L7 Observability &amp; Audit.</p>
+
+      <figure class="avoid-break" style="margin: 18px 0 8px; padding: 18px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9); background-image: var(--grid, none); background-size: 22px 22px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #2f5d8a); margin-bottom: 12px;">Capability model — core + expansion packs</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div style="border: 1px solid var(--hairline, #d9dce3); background: var(--paper, #fcfcfd); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px 12px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">TIER 1 · COLLABORATION</div><div style="font-size: 12.5px; font-weight: 600; margin: 3px 0 5px;">Knowledge &amp; documents</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); line-height: 1.6;">Wiki.js · webmail · file share / WebDAV</div></div>
+          <div style="border: 1px solid var(--hairline, #d9dce3); background: var(--paper, #fcfcfd); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px 12px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">TIER 1 · COMMUNICATIONS</div><div style="font-size: 12.5px; font-weight: 600; margin: 3px 0 5px;">Real-time voice / video</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); line-height: 1.6;">Jitsi VoIP / VTC — no dedicated PBX</div></div>
+          <div style="border: 1px solid var(--hairline, #d9dce3); background: var(--paper, #fcfcfd); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px 12px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">TIER 1 · DEVELOPER</div><div style="font-size: 12.5px; font-weight: 600; margin: 3px 0 5px;">Build &amp; test</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); line-height: 1.6;">Gitea · CI · dev / staging envs</div></div>
+        </div>
+        <div style="text-align: center; color: var(--accent, #2f5d8a); font-family: 'IBM Plex Mono', monospace; font-size: 10px; margin: 8px 0 6px;">▲ adopt per site, as needed</div>
+        <div style="background: var(--accent, #2f5d8a); color: #fff; padding: 12px 14px; display: flex; align-items: center; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .06em;">TIER 0</span><span style="font-weight: 600; font-size: 13.5px;">Core platform · L1–L8</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; opacity: .85; flex: 1; text-align: right;">accounts · authn/authz · logging · audit</span></div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 12px; letter-spacing: .03em;">FIG 2 — The eight-layer core is the mandatory base; feature packs ride on the same identity, audit, and platform layers and are adopted only where a site needs them.</figcaption>
+      </figure>
+
+      <!-- ============ 4. LAYER DETAIL ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">04</span><span>Layer-by-layer detail</span></h2>
+
+      <!-- L1 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L1</span>Facility &amp; physical plant</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">The ground truth: secured server rooms at each site, conditioned power (dual-feed UPS + generator where available), cooling, and structured cabling. Physical access is controlled and logged — the air-gap is only as strong as the door. Sites are linked over a <strong>private point-to-point fiber</strong> (no carrier internet); fully isolated "island" sites that reconcile by escorted media transfer are supported as a fallback.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Locked racks + access log</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Dual UPS / PDU</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Private inter-site fiber</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">No external WAN uplink</span></div>
+
+      <!-- L2 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L2</span>Hardware &amp; storage fabric</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">Commodity x86 servers in a <strong>hyper-converged</strong> arrangement: each primary site runs a 3-node cluster (CPU + RAM + NVMe) providing both compute and replicated storage via <strong>Ceph</strong> — three nodes give quorum and survive a single-node loss. Branch sites run 1–2 nodes. Networking is redundant managed L3 switches with VLAN support plus a firewall/router enforcing segmentation (with no internet egress path to enable).</p>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0 2px;"><thead><tr><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 10px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Role</th><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 10px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Primary site</th><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 10px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Branch site</th></tr></thead><tbody><tr><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">Compute / storage nodes</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">3 × HCI (Ceph)</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">1–2 × node</td></tr><tr><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">Backup target</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">1 × Proxmox Backup Server</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">replicates to primary</td></tr><tr><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">Network</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">2 × L3 switch, 1 × firewall</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">1 × L3 switch</td></tr></tbody></table>
+
+      <!-- L3 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L3</span>Network foundation services</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">The services everything else assumes. <strong>DHCP + DNS</strong> run on a redundant pair (Technitium, or dnsmasq for the simplest footprint) — internal zones only, no forwarders. <strong>NTP</strong> is the subtle one: with no public time source, one appliance per site is a <strong>GPS-disciplined stratum-1 clock</strong> feeding chrony on every host. Accurate time is non-negotiable — TLS, Kerberos, tokens, and audit ordering all break when clocks drift.</p>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">An <strong>internal PKI</strong> (step-ca) issues every TLS certificate from a site-local root, replacing the public CAs that don't exist here — it is the trust anchor for the mutual-TLS used everywhere above. Keep this layer ruthlessly small and boring: it is the foundation the whole platform assumes is always correct. (The offline mirror, container registry, and source control sit one layer up, in L5.)</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Technitium DNS+DHCP</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">chrony + GPS stratum-1</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">step-ca internal PKI</span></div>
+
+      <!-- L4 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L4</span>Compute platform</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">Two tools, one clear split — not three ways to do the same thing. <strong>Proxmox VE</strong> is the virtualization substrate: it clusters the physical nodes and runs VMs and LXC containers. <strong>K3s</strong> is the single orchestrator for production services — a 3-node cluster with an embedded HA datastore that self-heals and scales without full Kubernetes overhead. Everything containerized runs on K3s; Proxmox carries only what must be a VM (the PKI root, the identity database) plus the K3s nodes themselves. <strong>Docker Compose is deliberately not a third production platform</strong>: it is reserved for two narrow jobs — bootstrapping the registry/mirror before K3s exists, and the lightweight demo/dev twin (§05). Configuration is declarative: <strong>Ansible</strong> provisions hosts, and a GitOps controller (Flux) reconciles K3s from Git (L5).</p>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0 2px;"><thead><tr><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 10px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Use it for</th><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 10px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Choose</th></tr></thead><tbody><tr><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">All production containerized services</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">K3s</td></tr><tr><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">VM-only workloads (PKI root, identity DB) + K3s nodes</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">Proxmox VE</td></tr><tr><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3);">Registry/mirror bootstrap + demo/dev twin only</td><td style="padding: 6px 10px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">Docker Compose</td></tr></tbody></table>
+
+      <!-- L5 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L5</span>Software supply chain &amp; configuration control</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">The system's <strong>single source of truth</strong> and the only seam where the outside world enters. An <strong>offline package mirror</strong> (OS packages, PyPI, OS images) and an <strong>OCI container registry</strong> (Harbor for scanning + RBAC, or Zot for minimalism) hold every artifact the air-gap runs — nothing is ever pulled from the internet. <strong>Gitea</strong> hosts all source code and <strong>Infrastructure-as-Code</strong>: the declarative definition of the entire environment, promoted to its own layer because everything above is built from it.</p>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">Updates are controlled, never ad-hoc. External artifacts enter only through a <strong>reviewed offline-ingestion process</strong> into the mirror/registry; from there a change is just a Git commit — reviewed, CI-built and signed, pushed to the registry, then reconciled onto K3s by <strong>Flux (GitOps)</strong>. Every change is versioned, attributable, and reversible. The update flow is detailed in §06.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Gitea (source + IaC)</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Harbor / Zot registry</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">apt / PyPI mirror</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Ansible</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Flux GitOps</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">CI runner</span></div>
+
+      <!-- L6 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L6</span>Identity, authentication &amp; authorization</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">The single source of truth for <em>who</em> and <em>what they may do</em>. <strong>lldap</strong> is the lightweight directory of users and groups (single binary, web UI). <strong>Keycloak</strong> federates it and acts as the identity provider, issuing <strong>OIDC/SAML</strong> single sign-on to every web service (Guacamole, Harbor, Gitea, Grafana, Proxmox). Linux hosts authenticate via SSSD against the same directory. <strong>MFA</strong> is enforced with TOTP and WebAuthn/hardware keys — both work fully offline, unlike SMS. Authorization is role-based: groups in lldap map to Keycloak roles map to per-service permissions. Optional <strong>FreeRADIUS</strong> adds 802.1X port-level network access control.</p>
+      <p style="font-size: 12.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">See FIG 4 for the end-to-end authentication flow.</p>
+
+      <!-- L6 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L7</span>Observability &amp; audit</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">Logging and auditing as a designed layer. <strong>Grafana Loki</strong> aggregates logs (shipped by lightweight Alloy/Promtail agents); <strong>Prometheus + Grafana</strong> cover application and service metrics and dashboards, while <strong>Zabbix</strong> watches infrastructure availability — device up/down, hardware health, and SNMP from switches, firewalls, and UPS units (a Prometheus SNMP-exporter is a fine single-stack alternative). The audit backbone is <strong>Wazuh</strong> — a single open-source platform giving host intrusion detection, file-integrity monitoring, log analysis, and CIS compliance scoring. Host <strong>auditd</strong> events, Keycloak login/admin events, and Guacamole session records all flow to it. Audit data lands in <strong>append-only, restricted-access storage</strong> with periodic integrity hashing, so the record is tamper-evident. Alerting routes to dashboards and internal SMTP.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Loki + Alloy (logs)</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Prometheus + Grafana</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Zabbix (infra / SNMP)</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">Wazuh (audit/SIEM/FIM)</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">auditd on all hosts</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; padding: 3px 8px; border: 1px solid var(--hairline, #d9dce3); border-radius: 3px; background: var(--panel, #f4f6f9);">append-only audit store</span></div>
+
+      <!-- L7 -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 22px 0 4px; display: flex; align-items: center; gap: 10px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 7px; border-radius: 3px;">L8</span>Access &amp; endpoints</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;"><strong>Apache Guacamole</strong> is the clientless access gateway: users reach RDP/VNC/SSH desktops and apps from a browser, with SSO via Keycloak and every session recordable for audit. Most users sit at <strong>stateless zero/thin clients</strong> that boot straight into a locked-down browser pointed at Guacamole — no local data, nothing to steal. The compute for those desktops lives on the platform (L4). Separately, an <strong>optional offline image</strong> serves users who must work on a laptop with no network at all; it is detailed below and in FIG 5.</p>
+
+      <!-- ============ DIAGRAMS: NETWORK SEGMENTATION ============ -->
+      <figure class="avoid-break" style="margin: 18px 0 8px; padding: 18px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9); background-image: var(--grid, none); background-size: 22px 22px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #2f5d8a); margin-bottom: 12px;">Network segmentation (VLANs)</div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+          <div style="border: 1px solid var(--hairline, #d9dce3); background: var(--paper, #fcfcfd); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;">VLAN 10</div><div style="font-size: 12px; font-weight: 600; margin: 2px 0 6px;">Management</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">Proxmox, switches, IPMI, PKI root. Admin-only, bastion-gated.</div></div>
+          <div style="border: 1px solid var(--hairline, #d9dce3); background: var(--paper, #fcfcfd); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;">VLAN 20</div><div style="font-size: 12px; font-weight: 600; margin: 2px 0 6px;">Server / services</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">K3s, Keycloak, Loki, Wazuh, registry, DNS/DHCP/NTP.</div></div>
+          <div style="border: 1px solid var(--hairline, #d9dce3); background: var(--paper, #fcfcfd); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;">VLAN 30</div><div style="font-size: 12px; font-weight: 600; margin: 2px 0 6px;">User endpoints</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">Zero clients, managed workstations. Reach services via Guacamole only.</div></div>
+          <div style="border: 1px dashed var(--accent, #2f5d8a); background: var(--paper, #fcfcfd); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;">VLAN 40</div><div style="font-size: 12px; font-weight: 600; margin: 2px 0 6px;">Enrollment</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">Quarantined net where offline laptops enroll &amp; reconcile.</div></div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px;"><span style="flex: 1; height: 2px; background: var(--accent, #2f5d8a);"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent, #2f5d8a); white-space: nowrap;">L3 FIREWALL — default-deny between VLANs · NO INTERNET EGRESS</span><span style="flex: 1; height: 2px; background: var(--accent, #2f5d8a);"></span></div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 12px; letter-spacing: .03em;">FIG 3 — Segmentation isolates management, services, users, and the enrollment zone. Inter-VLAN traffic is default-deny; there is no route to the internet to begin with.</figcaption>
+      </figure>
+
+      <!-- AUTH FLOW -->
+      <figure class="avoid-break" style="margin: 18px 0 8px; padding: 18px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9); background-image: var(--grid, none); background-size: 22px 22px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #2f5d8a); margin-bottom: 12px;">Authentication &amp; SSO flow</div>
+        <div style="display: flex; align-items: stretch; gap: 0;">
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 10px 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">1</span><span style="font-size: 12px; font-weight: 600;">Endpoint</span><span style="font-size: 10px; color: var(--muted, #5b606b);">zero client</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 15px; padding: 0 5px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 10px 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">2</span><span style="font-size: 12px; font-weight: 600;">Guacamole</span><span style="font-size: 10px; color: var(--muted, #5b606b);">OIDC redirect</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 15px; padding: 0 5px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; background: var(--paper, #fcfcfd); border: 1px solid var(--accent, #2f5d8a); border-width: 2px; padding: 10px 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">3</span><span style="font-size: 12px; font-weight: 600;">Keycloak</span><span style="font-size: 10px; color: var(--muted, #5b606b);">IdP + MFA</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 15px; padding: 0 5px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 10px 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">4</span><span style="font-size: 12px; font-weight: 600;">lldap</span><span style="font-size: 10px; color: var(--muted, #5b606b);">verify + roles</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 15px; padding: 0 5px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 10px 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">5</span><span style="font-size: 12px; font-weight: 600;">Desktop / app</span><span style="font-size: 10px; color: var(--muted, #5b606b);">token granted</span></div>
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted, #5b606b); margin-top: 10px; text-align: center;">↳ all service-to-service traffic mutually-TLS'd by step-ca · every step logged to Wazuh + Loki</div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 10px; letter-spacing: .03em;">FIG 4 — A single sign-on grants a short-lived token; the same flow backs every web service. MFA is enforced at step 3.</figcaption>
+      </figure>
+
+      <!-- OFFLINE IMAGE SECTION -->
+      <h3 style="font-size: 16.5px; font-weight: 600; margin: 26px 0 6px;">The optional offline endpoint image</h3>
+      <p style="font-size: 14.5px; margin: 0 0 8px;">For users who must work on a laptop with <strong>no connection to the network at all</strong>, a hardened, immutable OS image (e.g. an atomic Linux build) runs entirely self-contained. It carries the apps and the slice of data the role needs, authenticates locally against a cached credential, and writes its own signed audit log. It is deliberately <em>not</em> the whole system — it's a bounded, time-boxed extension of it.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0;">
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 11px 13px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a);">CONTROLS</div><ul style="font-size: 13px; margin: 6px 0 0; padding-left: 18px; line-height: 1.55;"><li>Full-disk encryption (LUKS) + verified boot</li><li>Cached credential with a hard expiry (e.g. 30 days)</li><li>Local auditd log, hash-chained &amp; signed</li><li>Lockout once the offline window lapses</li></ul></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); padding: 11px 13px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a);">ON RECONNECT</div><ul style="font-size: 13px; margin: 6px 0 0; padding-left: 18px; line-height: 1.55;"><li>Identity + image-integrity re-checked</li><li>Local audit log uploaded to Wazuh</li><li>Credentials &amp; policy refreshed; clock re-synced</li><li>Remote-wipe honored if device reported lost</li></ul></div>
+      </div>
+
+      <figure class="avoid-break" style="margin: 12px 0 8px; padding: 18px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9); background-image: var(--grid, none); background-size: 22px 22px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #2f5d8a); margin-bottom: 12px;">Offline image lifecycle</div>
+        <div style="display: flex; align-items: stretch; gap: 0;">
+          <div style="flex: 1; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px 9px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">STAGE 1</div><div style="font-size: 12.5px; font-weight: 600; margin: 2px 0 4px;">Enroll (online)</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">On VLAN 40: FDE keys, certs, cached creds + expiry, policy, app bundle.</div></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 16px; padding: 0 5px;">→</div>
+          <div style="flex: 1; background: var(--paper, #fcfcfd); border: 1px dashed var(--accent, #2f5d8a); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px 9px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">STAGE 2</div><div style="font-size: 12.5px; font-weight: 600; margin: 2px 0 4px;">Operate offline</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">Disconnected: local login, local signed audit log, time-boxed.</div></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 16px; padding: 0 5px;">→</div>
+          <div style="flex: 1; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px 9px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">STAGE 3</div><div style="font-size: 12.5px; font-weight: 600; margin: 2px 0 4px;">Reconnect</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">Back on VLAN 40: identity &amp; image integrity verified before trust.</div></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 16px; padding: 0 5px;">→</div>
+          <div style="flex: 1; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 10px 9px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">STAGE 4</div><div style="font-size: 12.5px; font-weight: 600; margin: 2px 0 4px;">Reconcile</div><div style="font-size: 11px; color: var(--muted, #5b606b); line-height: 1.5;">Upload audit log, refresh creds/policy. If expired → re-image.</div></div>
+        </div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a); margin-top: 8px; text-align: center;">↺ Stage 4 → Stage 2 while still inside the validity window · past expiry → device locks until re-enrolled</div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 10px; letter-spacing: .03em;">FIG 5 — The offline image is a closed loop: trust is granted for a bounded window and must be renewed by reconnecting, which also drains its audit trail back into the core.</figcaption>
+      </figure>
+
+      <!-- ============ 5. ENVIRONMENTS ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">05</span><span>Environments: dev, test, production &amp; demo</span></h2>
+      <p style="font-size: 15px; margin: 0 0 10px;">One definition, several environments. The same Infrastructure-as-Code in Gitea (L5) deploys to isolated environments so every change is proven before it reaches users. Dev and Test/Staging are separate <strong>K3s namespaces</strong> (or a small dedicated cluster) fed by the same GitOps pipeline; Production is the air-gapped multi-site platform; and a <strong>demo/dev twin</strong> runs on a single internet-connected cloud VM under Docker Compose for evaluation, training, and external development.</p>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin: 4px 0 6px;">
+        <thead><tr><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 9px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Environment</th><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 9px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Runs on</th><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 9px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Connectivity</th><th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 9px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Purpose</th></tr></thead>
+        <tbody>
+          <tr><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3); font-weight: 600;">Dev</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s namespace / sandbox</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Air-gapped</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Feature work; disposable</td></tr>
+          <tr><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3); font-weight: 600;">Test / Staging</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s namespace (prod-like)</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Air-gapped</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Integration + release validation</td></tr>
+          <tr><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3); font-weight: 600;">Production</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Multi-site Proxmox + K3s</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Air-gapped</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">The live system</td></tr>
+          <tr><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3); font-weight: 600;">Demo / dev twin</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Single cloud VM, Docker Compose</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Internet · 5–15 users</td><td style="padding: 6px 9px; border-bottom: 1px solid var(--hairline, #d9dce3);">Evaluation, training, external dev</td></tr>
+        </tbody>
+      </table>
+
+      <figure class="avoid-break" style="margin: 14px 0 8px; padding: 18px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9); background-image: var(--grid, none); background-size: 22px 22px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #2f5d8a); margin-bottom: 12px;">Demo / dev twin — single cloud VM</div>
+        <div style="text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b);">Internet · 5–15 users (browser)</div>
+        <div style="text-align: center; color: var(--accent, #2f5d8a); font-size: 14px; line-height: 1;">↓</div>
+        <div style="background: var(--accent, #2f5d8a); color: #fff; padding: 9px 12px; display: flex; align-items: center; gap: 10px; border-radius: 2px;"><span style="font-weight: 600; font-size: 13px;">Caddy</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; opacity: .9;">reverse proxy + automatic TLS (Let's Encrypt)</span></div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin: 8px 0;">
+          <div style="background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Keycloak</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--accent, #2f5d8a);">SSO · OIDC/SAML</div></div>
+          <div style="background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Gitea</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted, #5b606b);">source · IaC</div></div>
+          <div style="background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Guacamole</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted, #5b606b);">remote access</div></div>
+          <div style="background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Wiki.js</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted, #5b606b);">wiki</div></div>
+          <div style="background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Nextcloud</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted, #5b606b);">files · WebDAV</div></div>
+          <div style="background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Grafana</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted, #5b606b);">+ Prometheus</div></div>
+          <div style="background: var(--paper, #fcfcfd); border: 1px dashed var(--accent, #2f5d8a); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Jitsi</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted, #5b606b);">VoIP/VTC · opt</div></div>
+          <div style="background: var(--paper, #fcfcfd); border: 1px dashed var(--accent, #2f5d8a); border-top: 2px solid var(--accent, #2f5d8a); padding: 7px 8px;"><div style="font-size: 12px; font-weight: 600;">Roundcube</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted, #5b606b);">webmail · opt</div></div>
+        </div>
+        <div style="background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 8px 12px; display: flex; align-items: center; gap: 10px;"><span style="font-weight: 600; font-size: 12.5px;">PostgreSQL</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted, #5b606b);">one database per app · shared instance</span></div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 12px; letter-spacing: .03em;">FIG 6 — The demo twin packs the same tools onto one VM with Compose, all behind Caddy and signed in through Keycloak. Full files in Appendix B.</figcaption>
+      </figure>
+
+      <!-- ============ 6. CONFIG CONTROL & UPDATES ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">06</span><span>Configuration control &amp; updates</span></h2>
+      <p style="font-size: 15px; margin: 0 0 10px;">Nobody configures production by hand. The desired state of the platform lives in Gitea as Infrastructure-as-Code, and every change — a settings tweak or a new app version — follows the same reviewed path. That makes changes versioned, attributable, and reversible: a rollback is a <code style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; background: var(--panel, #f4f6f9); padding: 1px 5px; border-radius: 3px;">git revert</code>, and the prior signed artifact is still in the registry.</p>
+
+      <figure class="avoid-break" style="margin: 8px 0 8px; padding: 18px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9); background-image: var(--grid, none); background-size: 22px 22px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #2f5d8a); margin-bottom: 12px;">Change &amp; update flow (GitOps)</div>
+        <div style="display: flex; align-items: stretch; gap: 0;">
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 9px 5px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">1</span><span style="font-size: 11.5px; font-weight: 600;">Edit IaC</span><span style="font-size: 9.5px; color: var(--muted, #5b606b);">Gitea</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 14px; padding: 0 4px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 9px 5px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">2</span><span style="font-size: 11.5px; font-weight: 600;">Review</span><span style="font-size: 9.5px; color: var(--muted, #5b606b);">pull request</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 14px; padding: 0 4px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 9px 5px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">3</span><span style="font-size: 11.5px; font-weight: 600;">CI build</span><span style="font-size: 9.5px; color: var(--muted, #5b606b);">+ sign</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 14px; padding: 0 4px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 9px 5px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">4</span><span style="font-size: 11.5px; font-weight: 600;">Registry</span><span style="font-size: 9.5px; color: var(--muted, #5b606b);">signed image</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 14px; padding: 0 4px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; background: var(--paper, #fcfcfd); border: 1px solid var(--accent, #2f5d8a); border-width: 2px; padding: 9px 5px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">5</span><span style="font-size: 11.5px; font-weight: 600;">Flux → K3s</span><span style="font-size: 9.5px; color: var(--muted, #5b606b);">reconcile</span></div>
+          <div style="display: flex; align-items: center; color: var(--accent, #2f5d8a); font-size: 14px; padding: 0 4px;">›</div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; background: var(--paper, #fcfcfd); border: 1px solid var(--hairline, #d9dce3); padding: 9px 5px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent, #2f5d8a);">6</span><span style="font-size: 11.5px; font-weight: 600;">Observe</span><span style="font-size: 9.5px; color: var(--muted, #5b606b);">Grafana · Wazuh</span></div>
+        </div>
+        <div style="margin-top: 10px; padding: 8px 12px; border: 1px dashed var(--accent, #2f5d8a); background: var(--paper, #fcfcfd); font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted, #5b606b);">AIR-GAP INGESTION (only inbound path): vetted media → scan + sign → mirror / registry → referenced by a normal Git change above</div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 10px; letter-spacing: .03em;">FIG 7 — One path for every change. External artifacts join only after reviewed, scanned, signed ingestion; drift is caught by Flux and flagged by Wazuh SCA.</figcaption>
+      </figure>
+
+      <!-- ============ 7. FEATURE LAYERS ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">07</span><span>Feature layers (optional expansion)</span></h2>
+      <p style="font-size: 15px; margin: 0 0 10px;">Beyond the core, capability packs add user-facing services. Each runs on the same platform (K3s in production, Compose in the demo), signs users in through <strong>Keycloak SSO</strong>, and is logged and audited like everything else. They are modular — adopt only what a site needs, in any order.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-left: 3px solid var(--accent, #2f5d8a); padding: 12px 14px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">WIKI</div><div style="font-size: 14px; font-weight: 600; margin: 3px 0 4px;">Wiki.js</div><p style="font-size: 12.5px; margin: 0; color: var(--muted, #5b606b);">Internal knowledge base with versioned pages and OIDC SSO. Lightweight, single service.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-left: 3px solid var(--accent, #2f5d8a); padding: 12px 14px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">EMAIL / WEBMAIL</div><div style="font-size: 14px; font-weight: 600; margin: 3px 0 4px;">Roundcube + Mailu</div><p style="font-size: 12.5px; margin: 0; color: var(--muted, #5b606b);">Internal-only mail with browser webmail. Mailu bundles SMTP/IMAP + anti-spam; not fully featured, but enough.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-left: 3px solid var(--accent, #2f5d8a); padding: 12px 14px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">FILE SHARE</div><div style="font-size: 14px; font-weight: 600; margin: 3px 0 4px;">Nextcloud (WebDAV)</div><p style="font-size: 12.5px; margin: 0; color: var(--muted, #5b606b);">Web UI + native WebDAV endpoint, SSO, quotas and sharing. Swap for SFTPGo if you want WebDAV alone.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-left: 3px solid var(--accent, #2f5d8a); padding: 12px 14px; background: var(--paper, #fcfcfd);"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">VOIP / VTC</div><div style="font-size: 14px; font-weight: 600; margin: 3px 0 4px;">Jitsi Meet</div><p style="font-size: 12.5px; margin: 0; color: var(--muted, #5b606b);">Browser audio + video meetings as containers on the platform — no dedicated PBX or VTC appliance. SSO-gated.</p></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-left: 3px solid var(--accent, #2f5d8a); padding: 12px 14px; background: var(--paper, #fcfcfd); grid-column: 1 / -1;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--accent, #2f5d8a); letter-spacing: .04em;">DEVELOPER SERVICES</div><div style="font-size: 14px; font-weight: 600; margin: 3px 0 4px;">Gitea + CI + dev/staging</div><p style="font-size: 12.5px; margin: 0; color: var(--muted, #5b606b);">Already present in L5 as the source-of-truth; exposed to developer groups with CI runners and the isolated dev/test environments from §05.</p></div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--muted, #5b606b); margin: 8px 0 0; font-style: italic;">Runnable Compose for the wiki, file share, webmail, and VoIP/VTC packs — wired for SSO — is in Appendix B.</p>
+
+      <!-- ============ 8. BUILD ORDER & PHASES ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">08</span><span>Build order &amp; phasing</span></h2>
+      <p style="font-size: 15px; margin: 0 0 8px;">Build strictly bottom-up. Each phase delivers a working, hardened layer that the next depends on — there is no point standing up identity before the PKI and time source it trusts exist. The plan below assumes a ~9-month primary-site build with branch rollout at the end; phases overlap only where there is no hard dependency.</p>
+
+      <figure class="avoid-break" style="margin: 10px 0 8px; padding: 18px 18px 14px; border: 1px solid var(--hairline, #d9dce3); background: var(--panel, #f4f6f9);">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #2f5d8a); margin-bottom: 12px;">Phased timeline (months)</div>
+        <!-- month header -->
+        <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); gap: 0; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted, #5b606b); border-bottom: 1px solid var(--hairline, #d9dce3); padding-bottom: 4px; margin-bottom: 8px;">
+          <span></span><span style="text-align: center;">M1</span><span style="text-align: center;">M2</span><span style="text-align: center;">M3</span><span style="text-align: center;">M4</span><span style="text-align: center;">M5</span><span style="text-align: center;">M6</span><span style="text-align: center;">M7</span><span style="text-align: center;">M8</span><span style="text-align: center;">M9</span>
+        </div>
+        <!-- rows -->
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P0 · Design &amp; sizing</span><span style="grid-column: 2 / 3; height: 14px; background: var(--accent, #2f5d8a); opacity: .45; border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P1 · Facility &amp; hardware</span><span style="grid-column: 2 / 4; height: 14px; background: var(--accent, #2f5d8a); border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P2 · Network foundation</span><span style="grid-column: 3 / 5; height: 14px; background: var(--accent, #2f5d8a); border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P3 · Compute platform</span><span style="grid-column: 4 / 6; height: 14px; background: var(--accent, #2f5d8a); border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P4 · Supply chain &amp; config</span><span style="grid-column: 4 / 6; height: 14px; background: var(--accent, #2f5d8a); opacity: .7; border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P5 · Identity &amp; authz</span><span style="grid-column: 5 / 7; height: 14px; background: var(--accent, #2f5d8a); border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P6 · Observability &amp; audit</span><span style="grid-column: 6 / 8; height: 14px; background: var(--accent, #2f5d8a); border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P7 · Access &amp; endpoints</span><span style="grid-column: 6 / 9; height: 14px; background: var(--accent, #2f5d8a); opacity: .7; border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P8 · Offline image (pilot)</span><span style="grid-column: 7 / 9; height: 14px; background: var(--accent, #2f5d8a); opacity: .7; border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P9 · Backup, DR &amp; harden</span><span style="grid-column: 8 / 10; height: 14px; background: var(--accent, #2f5d8a); border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P10 · Feature packs (opt)</span><span style="grid-column: 9 / 11; height: 14px; background: var(--accent, #2f5d8a); opacity: .7; border-radius: 2px;"></span></div>
+          <div style="display: grid; grid-template-columns: 150px repeat(9, 1fr); align-items: center; height: 17px;"><span style="font-size: 11px; font-weight: 600; white-space: nowrap;">P11 · Branch rollout</span><span style="grid-column: 9 / 11; height: 14px; background: var(--accent, #2f5d8a); opacity: .7; border-radius: 2px;"></span></div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted, #5b606b);">
+          <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 18px; height: 9px; background: var(--accent, #2f5d8a); border-radius: 2px;"></span>critical path</span>
+          <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 18px; height: 9px; background: var(--accent, #2f5d8a); opacity: .7; border-radius: 2px;"></span>overlapping / pilot</span>
+          <span style="margin-left: auto; color: var(--accent, #2f5d8a);">◆ CORE GO-LIVE end of M8 · feature packs + branch sites M9</span>
+        </div>
+        <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted, #5b606b); margin-top: 12px; letter-spacing: .03em;">FIG 8 — The staircase reflects the dependency chain: PKI &amp; time (P2) precede identity (P5); supply chain (P4) gates GitOps; identity precedes SSO-gated access (P7) and audit (P6).</figcaption>
+      </figure>
+
+      <!-- ============ 6. CROSS-CUTTING: BACKUP & DR ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">09</span><span>Backup &amp; disaster recovery</span></h2>
+      <p style="font-size: 15px; margin: 0 0 8px;">A <strong>3-2-1 strategy lived entirely inside the air-gap</strong>. <strong>Proxmox Backup Server</strong> takes deduplicated, incremental backups of every VM and LXC; application databases (Keycloak, Gitea, Harbor, Guacamole) also get logical dumps. Backups replicate over the private link to a second site, and a rotating set of <strong>offline media</strong> is held in a separate secured location. Restores are runbook-driven and <strong>tested on a schedule</strong> — an untested backup is a guess.</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0;">
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 13px; background: var(--paper, #fcfcfd);"><div style="font-size: 22px; font-weight: 700;">≤ 24h</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted, #5b606b); margin-top: 4px;">RPO — core services</div></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 13px; background: var(--paper, #fcfcfd);"><div style="font-size: 22px; font-weight: 700;">≤ 4h</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted, #5b606b); margin-top: 4px;">RTO — identity &amp; access</div></div>
+        <div style="border: 1px solid var(--hairline, #d9dce3); border-top: 3px solid var(--accent, #2f5d8a); padding: 13px; background: var(--paper, #fcfcfd);"><div style="font-size: 22px; font-weight: 700;">Quarterly</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted, #5b606b); margin-top: 4px;">Restore test cadence</div></div>
+      </div>
+      <p style="font-size: 13px; color: var(--muted, #5b606b); margin: 4px 0 0;">Special cases: the <strong>PKI root key</strong> is kept offline in a safe (HSM or sealed media); the <strong>append-only audit store</strong> is replicated but never overwritten. RPO/RTO targets are starting points — confirm against business impact per service.</p>
+
+      <!-- ============ 7. SECURITY & HARDENING ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">10</span><span>Security &amp; hardening checklist</span></h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; margin-top: 6px;">
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); border-bottom: 1px solid var(--hairline, #d9dce3); padding-bottom: 4px; margin-bottom: 7px;">IDENTITY &amp; ACCESS</div>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 1.85;"><li>☐ MFA enforced for all admin &amp; privileged roles</li><li>☐ Least-privilege RBAC; no shared accounts</li><li>☐ Bastion-only access to management VLAN</li><li>☐ Short-lived tokens; session recording on</li></ul>
+        </div>
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); border-bottom: 1px solid var(--hairline, #d9dce3); padding-bottom: 4px; margin-bottom: 7px;">NETWORK</div>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 1.85;"><li>☐ Default-deny inter-VLAN firewall rules</li><li>☐ No internet egress path configured anywhere</li><li>☐ 802.1X / NAC on user ports (optional)</li><li>☐ DNS internal-only, no external forwarders</li></ul>
+        </div>
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); border-bottom: 1px solid var(--hairline, #d9dce3); padding-bottom: 4px; margin-bottom: 7px;">HOST &amp; PLATFORM</div>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 1.85;"><li>☐ CIS benchmark via Wazuh SCA, drift alerted</li><li>☐ nftables host firewall; SSH key-only</li><li>☐ Only signed images from internal registry</li><li>☐ Offline patch process tested &amp; scheduled</li></ul>
+        </div>
+        <div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent, #2f5d8a); border-bottom: 1px solid var(--hairline, #d9dce3); padding-bottom: 4px; margin-bottom: 7px;">DATA, AUDIT &amp; ENDPOINTS</div>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; line-height: 1.85;"><li>☐ FDE on offline laptops &amp; backup media</li><li>☐ Append-only audit store, integrity-hashed</li><li>☐ Verified boot + remote-wipe on offline image</li><li>☐ Incident-response runbook + IR drill done</li></ul>
+        </div>
+      </div>
+
+      <!-- ============ 8. BOM & COST ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">11</span><span>Bill of materials &amp; cost estimate</span></h2>
+      <p style="font-size: 13.5px; color: var(--muted, #5b606b); margin: 0 0 10px; font-style: italic;">Indicative planning figures (USD) for one primary site + initial endpoints. All platform software is open-source — license cost is $0; spend is hardware, optional support, and services. Refine against vendor quotes and final endpoint counts.</p>
+      <table style="width: 100%; border-collapse: collapse; font-size: 12.5px;">
+        <thead><tr>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 8px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Item</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 8px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Layer</th>
+          <th style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 8px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Qty</th>
+          <th style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 8px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Unit</th>
+          <th style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted, #5b606b); padding: 7px 8px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Extended</th>
+        </tr></thead>
+        <tbody style="font-variant-numeric: tabular-nums;">
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">HCI compute/storage nodes (2U, dual-CPU, 256GB, NVMe)</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L2</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">8</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$9,000</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$72,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Backup server (Proxmox Backup Server)</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">XC</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">2</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$7,000</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$14,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">L3 managed switches</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L2</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">4</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$4,000</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$16,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Firewall / router appliances</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L2</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">2</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$3,000</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$6,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">GPS-disciplined NTP appliance</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L3</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">2</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$2,500</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$5,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">UPS, PDU, rack &amp; structured cabling</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L1</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">1</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$18,000</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$18,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Zero / thin clients</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L8</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">250</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$180</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$45,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Offline-image field laptops</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L8</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">40</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$1,400</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$56,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Hardware MFA keys (admin/privileged)</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L6</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">60</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$50</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$3,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Platform software (Proxmox, K3s, Keycloak, Wazuh, Zabbix, feature packs…)</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">L3–L8</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">—</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$0</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$0</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Optional vendor support (annual)</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">—</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">1yr</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$20,000</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$20,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Professional services (design + build)</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">—</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">1</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">~$160,000</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">~$160,000</td></tr>
+          <tr><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">Demo / dev cloud VM (annual)</td><td style="padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--muted, #5b606b);">demo</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">1yr</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$3,600</td><td style="text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--hairline, #d9dce3);">$3,600</td></tr>
+          <tr><td style="padding: 7px 8px; font-weight: 600;">Hardware + software subtotal</td><td style="padding: 7px 8px;"></td><td style="padding: 7px 8px;"></td><td style="padding: 7px 8px;"></td><td style="text-align: right; padding: 7px 8px; font-weight: 600;">$235,000</td></tr>
+          <tr><td style="padding: 4px 8px; color: var(--muted, #5b606b);">+ 15% contingency</td><td></td><td></td><td></td><td style="text-align: right; padding: 4px 8px; color: var(--muted, #5b606b);">~$35,000</td></tr>
+          <tr><td style="padding: 9px 8px; font-weight: 700; border-top: 2px solid var(--accent, #2f5d8a);">Indicative Year-1 total (incl. support + PS)</td><td style="border-top: 2px solid var(--accent, #2f5d8a);"></td><td style="border-top: 2px solid var(--accent, #2f5d8a);"></td><td style="border-top: 2px solid var(--accent, #2f5d8a);"></td><td style="text-align: right; padding: 9px 8px; font-weight: 700; border-top: 2px solid var(--accent, #2f5d8a); color: var(--accent, #2f5d8a);">~$455,000</td></tr>
+        </tbody>
+      </table>
+
+      <!-- ============ 9. RISK REGISTER ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">12</span><span>Risk register</span></h2>
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+        <thead><tr>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a); width: 30px;">ID</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Risk</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a); width: 52px;">L×I</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Mitigation</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R1</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Clock drift breaks TLS / tokens / audit order</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">M×H</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Redundant GPS stratum-1 per site; drift alerts in Prometheus</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R2</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Stale software — no upstream patches reach the air-gap</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">H×M</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Scheduled, reviewed offline ingestion into mirror/registry; patch SLA</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R3</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Lost / stolen offline laptop exposes data</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">M×H</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">FDE + verified boot + cred expiry + remote-wipe on reconnect</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R4</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Supply-chain: malicious image enters via ingestion</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">M×H</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Harbor signature + vuln scan; signed-images-only policy</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R5</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">PKI root key compromise</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">L×H</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Offline root in HSM/safe; short-lived online intermediate</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R6</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Identity service outage locks everyone out</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">L×H</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Clustered Keycloak + Postgres HA; break-glass local admin</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R7</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Audit log tampering hides an incident</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">L×H</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Append-only store, hash-chained, access-restricted &amp; replicated</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R8</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Backups silently fail / are unrestorable</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">M×H</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Quarterly restore drills; backup-success alerting; offsite copy</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R9</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Operator skills gap on K3s/Keycloak/Wazuh</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">M×M</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Runbooks, training in P8, optional vendor support contract</td></tr>
+          <tr><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace; color: var(--accent, #2f5d8a);">R10</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Capacity growth outpaces the cluster</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">M×M</td><td style="padding: 6px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Headroom sizing; Prometheus capacity alerts; add-node runbook</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 6px 0 0; font-family: 'IBM Plex Mono', monospace;">L×I = Likelihood × Impact (L/M/H). Assign an owner and review cadence at project kickoff.</p>
+
+      <!-- ============ APPENDIX: SERVICE INVENTORY ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">A</span><span>Appendix A · service inventory</span></h2>
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+        <thead><tr>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Service</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Tool</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a); width: 36px;">L</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Deploy</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">HA</th>
+          <th style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b606b); padding: 7px 7px; border-bottom: 1.5px solid var(--accent, #2f5d8a);">Auth</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">DNS / DHCP</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Technitium</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">3</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">VM/LXC</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Active-passive</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Local</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Time</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">chrony + GPS</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">3</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Appliance</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">2 sources</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">—</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Internal PKI</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">step-ca</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">3</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">VM</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Offline root</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">mTLS</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Registry</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Harbor / Zot</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">3</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Replicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Virtualization</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Proxmox VE</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">4</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Cluster</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">3-node quorum</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Orchestration</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">4</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">3 servers</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">HA datastore</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">RBAC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Source / IaC</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Gitea</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">5</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">DB replica</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">GitOps</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Flux</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">5</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Controller</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">RBAC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Directory</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">lldap</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">6</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">DB replica</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">—</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">SSO / IdP</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Keycloak</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">6</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Clustered</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC/SAML</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Logs / metrics</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Loki + Prom.</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">7</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Replicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Infra monitoring</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Zabbix</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">7</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Server + proxy</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Audit / SIEM</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Wazuh</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">7</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s + agents</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Mgr + indexer</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Access gateway</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Guacamole</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">8</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Replicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Wiki <span style="font-size:9px;color:var(--muted,#5b606b);">(feature)</span></td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Wiki.js</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">8</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Replicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">File share <span style="font-size:9px;color:var(--muted,#5b606b);">(feature)</span></td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Nextcloud</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">8</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Replicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Webmail <span style="font-size:9px;color:var(--muted,#5b606b);">(feature)</span></td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Roundcube/Mailu</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">8</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Replicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">OIDC</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">VoIP / VTC <span style="font-size:9px;color:var(--muted,#5b606b);">(feature)</span></td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">Jitsi</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">8</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">K3s</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">JVB scale-out</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">SSO-gated</td></tr>
+          <tr><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Backup</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3); font-family: 'IBM Plex Mono', monospace;">PBS</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">XC</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Dedicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Site-replicated</td><td style="padding: 5px 7px; border-bottom: 1px solid var(--hairline, #d9dce3);">Local</td></tr>
+        </tbody>
+      </table>
+      <!-- ============ APPENDIX B: DEPLOYMENT FILES ============ -->
+      <h2 style="font-size: 23px; font-weight: 600; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent, #2f5d8a); display: flex; align-items: baseline; gap: 12px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent, #2f5d8a);">B</span><span>Appendix B · deployment files (demo / dev twin)</span></h2>
+      <p style="font-size: 14px; margin: 0 0 6px;">The complete, runnable file set for the internet-connected demo twin (§05) — the same tools as production, behind Caddy and signed in through Keycloak SSO. Bring it up with <code style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: var(--panel, #f4f6f9); padding: 1px 5px; border-radius: 3px;">docker compose up -d</code>, or provision a fresh VM end-to-end with the Ansible playbook. Replace every <code style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: var(--panel, #f4f6f9); padding: 1px 5px; border-radius: 3px;">change-me-*</code> secret and the <code style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: var(--panel, #f4f6f9); padding: 1px 5px; border-radius: 3px;">DOMAIN</code> placeholders before use.</p>
+      <p style="font-size: 12px; color: var(--muted, #5b606b); margin: 0 0 16px; font-style: italic;">These same Compose definitions are the basis for the production K3s manifests, reconciled by Flux (§06). All files are provided as a download alongside this document.</p>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/docker-compose.yml</span><span>Core stack</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Caddy · Postgres · Keycloak · Gitea · Guacamole · Wiki.js · Nextcloud · Prometheus · Grafana, wired for SSO</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;"># =============================================================================
+#  Offline Network System — DEMO / DEV stack  (internet-connected, 5–15 users)
+# -----------------------------------------------------------------------------
+#  One cloud VM (recommend 4 vCPU / 16 GB RAM / 100 GB SSD, Ubuntu 22.04+).
+#  This Docker Compose stack is the LIGHTWEIGHT equivalent of the production
+#  platform: same tools (Keycloak, Gitea, Guacamole, Wiki.js, Nextcloud,
+#  Prometheus/Grafana) wired for Single Sign-On, behind Caddy with automatic
+#  TLS. Production uses K3s + the internal registry; this is the demo/dev twin.
+#
+#  Quick start:
+#     cp .env.example .env        # then edit secrets + DOMAIN
+#     ./init-guacamole-db.sh      # one-time: generate Guacamole schema (see README)
+#     docker compose up -d
+#  Add real-time comms (Jitsi):
+#     docker compose -f docker-compose.yml -f compose.comms.yml up -d
+# =============================================================================
+name: ons-demo
+
+x-restart: &amp;restart
+  restart: unless-stopped
+
+networks:
+  edge: {}
+  back: {}
+
+volumes:
+  caddy_data: {}
+  caddy_config: {}
+  pg_data: {}
+  gitea_data: {}
+  nextcloud_data: {}
+  grafana_data: {}
+  prometheus_data: {}
+
+services:
+  # ---------------------------------------------------------------- proxy + TLS
+  caddy:
+    image: caddy:2
+    &lt;&lt;: *restart
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [edge, back]
+
+  # ------------------------------------------ shared Postgres (one DB per app)
+  postgres:
+    image: postgres:16
+    &lt;&lt;: *restart
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PG_SUPER_PASSWORD}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      GITEA_DB_PASSWORD: ${GITEA_DB_PASSWORD}
+      GUAC_DB_PASSWORD: ${GUAC_DB_PASSWORD}
+      WIKIJS_DB_PASSWORD: ${WIKIJS_DB_PASSWORD}
+      NEXTCLOUD_DB_PASSWORD: ${NEXTCLOUD_DB_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    networks: [back]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------- identity provider (OIDC+SAML)
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    &lt;&lt;: *restart
+    command: start --import-realm
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_HOSTNAME: id.${DOMAIN}
+      KC_PROXY_HEADERS: xforwarded
+      KC_HTTP_ENABLED: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
+    volumes:
+      - ./realm-export.json:/opt/keycloak/data/import/realm.json:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # --------------------------------------------- source code + Infra-as-Code
+  gitea:
+    image: gitea/gitea:1.22
+    &lt;&lt;: *restart
+    environment:
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: postgres:5432
+      GITEA__database__NAME: gitea
+      GITEA__database__USER: gitea
+      GITEA__database__PASSWD: ${GITEA_DB_PASSWORD}
+      GITEA__server__DOMAIN: git.${DOMAIN}
+      GITEA__server__ROOT_URL: https://git.${DOMAIN}/
+      GITEA__service__DISABLE_REGISTRATION: "true"
+      # SSO: Site Admin → Authentication Sources → add OAuth2 (OpenID Connect)
+      #      Issuer: https://id.${DOMAIN}/realms/ons   Client: gitea
+    volumes:
+      - gitea_data:/data
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # -------------------------------------------- clientless remote-access gateway
+  guacd:
+    image: guacamole/guacd:1.5.5
+    &lt;&lt;: *restart
+    networks: [back]
+  guacamole:
+    image: guacamole/guacamole:1.5.5
+    &lt;&lt;: *restart
+    environment:
+      GUACD_HOSTNAME: guacd
+      POSTGRESQL_HOSTNAME: postgres
+      POSTGRESQL_DATABASE: guacamole
+      POSTGRESQL_USER: guacamole
+      POSTGRESQL_PASSWORD: ${GUAC_DB_PASSWORD}
+      WEBAPP_CONTEXT: ROOT
+      # ---- SSO via Keycloak (OpenID Connect) ----
+      OPENID_AUTHORIZATION_ENDPOINT: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/auth
+      OPENID_JWKS_ENDPOINT: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/certs
+      OPENID_ISSUER: https://id.${DOMAIN}/realms/ons
+      OPENID_CLIENT_ID: guacamole
+      OPENID_REDIRECT_URI: https://remote.${DOMAIN}/
+      OPENID_USERNAME_CLAIM_TYPE: preferred_username
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # ---------------------------------------------------------------------- wiki
+  wikijs:
+    image: ghcr.io/requarks/wiki:2
+    &lt;&lt;: *restart
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: wikijs
+      DB_USER: wikijs
+      DB_PASS: ${WIKIJS_DB_PASSWORD}
+      # SSO: Admin → Authentication → add OpenID Connect (issuer .../realms/ons)
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # ----------------------------------------------- file share (WebDAV + web UI)
+  nextcloud:
+    image: nextcloud:29-apache
+    &lt;&lt;: *restart
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: ${NEXTCLOUD_DB_PASSWORD}
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: files.${DOMAIN}
+      OVERWRITEPROTOCOL: https
+      TRUSTED_PROXIES: caddy
+      # WebDAV endpoint: https://files.${DOMAIN}/remote.php/dav/files/&lt;user&gt;/
+      # SSO: install the 'user_oidc' app, point it at .../realms/ons
+    volumes:
+      - nextcloud_data:/var/www/html
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # ---------------------------------------------------------------- monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    &lt;&lt;: *restart
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks: [back]
+  grafana:
+    image: grafana/grafana:latest
+    &lt;&lt;: *restart
+    environment:
+      GF_SERVER_ROOT_URL: https://grafana.${DOMAIN}
+      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+      GF_AUTH_GENERIC_OAUTH_NAME: Keycloak
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_OIDC_SECRET}
+      GF_AUTH_GENERIC_OAUTH_SCOPES: openid email profile
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/auth
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/token
+      GF_AUTH_GENERIC_OAUTH_API_URL: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/userinfo
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on: [prometheus]
+    networks: [back]
+  node-exporter:
+    image: prom/node-exporter:latest
+    &lt;&lt;: *restart
+    networks: [back]
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    &lt;&lt;: *restart
+    networks: [back]
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/Caddyfile</span><span>Reverse proxy</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Automatic HTTPS, one subdomain per service</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;"># =============================================================================
+#  Caddy reverse proxy — automatic HTTPS (Let's Encrypt) for the demo stack.
+#  Point a wildcard DNS record *.DOMAIN at this server's public IP.
+# =============================================================================
+{
+  email {$ACME_EMAIL}
+}
+
+# Identity provider (Keycloak)
+id.{$DOMAIN} {
+  reverse_proxy keycloak:8080
+}
+
+# Source code + Infrastructure-as-Code (Gitea)
+git.{$DOMAIN} {
+  reverse_proxy gitea:3000
+}
+
+# Clientless remote-access gateway (Apache Guacamole)
+remote.{$DOMAIN} {
+  reverse_proxy guacamole:8080
+}
+
+# Wiki (Wiki.js)
+wiki.{$DOMAIN} {
+  reverse_proxy wikijs:3000
+}
+
+# File share / WebDAV (Nextcloud)
+files.{$DOMAIN} {
+  reverse_proxy nextcloud:80
+  redir /.well-known/carddav /remote.php/dav 301
+  redir /.well-known/caldav /remote.php/dav 301
+}
+
+# Dashboards (Grafana)
+grafana.{$DOMAIN} {
+  reverse_proxy grafana:3000
+}
+
+# VoIP / VTC (Jitsi) — only active when compose.comms.yml is layered in
+meet.{$DOMAIN} {
+  reverse_proxy jitsi-web:80
+}
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/init-db.sh</span><span>Database bootstrap</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">One Postgres owner + database per app</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;">#!/bin/bash
+# Runs once on first Postgres start. Creates one owner + database per app.
+set -e
+
+create() {  # $1=user  $2=password  $3=database
+  psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" &lt;&lt;-SQL
+    CREATE USER ${1} WITH PASSWORD '${2}';
+    CREATE DATABASE ${3} OWNER ${1};
+SQL
+}
+
+create keycloak  "$KC_DB_PASSWORD"        keycloak
+create gitea     "$GITEA_DB_PASSWORD"     gitea
+create guacamole "$GUAC_DB_PASSWORD"      guacamole
+create wikijs    "$WIKIJS_DB_PASSWORD"    wikijs
+create nextcloud "$NEXTCLOUD_DB_PASSWORD" nextcloud
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/prometheus.yml</span><span>Monitoring</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Host + container scrape targets</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;">global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: node          # host metrics (CPU, RAM, disk, net)
+    static_configs:
+      - targets: ['node-exporter:9100']
+  - job_name: cadvisor      # per-container metrics
+    static_configs:
+      - targets: ['cadvisor:8080']
+  # In production, add SNMP / device targets here (or run Zabbix alongside).
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/compose.comms.yml</span><span>VoIP / VTC add-on</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Jitsi Meet as containers — no dedicated PBX</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;"># =============================================================================
+#  Add-on: VoIP / VTC via Jitsi Meet (browser-based audio + video meetings).
+#  No dedicated PBX/VTC hardware — runs as containers on the same host.
+#  Layer onto the base stack:
+#     docker compose -f docker-compose.yml -f compose.comms.yml up -d
+#  Reach it at https://meet.${DOMAIN} (Caddy route already defined).
+#  Set the JICOFO_AUTH_PASSWORD / JVB_AUTH_PASSWORD / JITSI_SECRET in .env.
+# =============================================================================
+name: ons-demo
+
+services:
+  jitsi-web:
+    image: jitsi/web:stable
+    restart: unless-stopped
+    environment:
+      PUBLIC_URL: https://meet.${DOMAIN}
+      ENABLE_XMPP_WEBSOCKET: "1"
+      XMPP_DOMAIN: meet.jitsi
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_BOSH_URL_BASE: http://prosody:5280
+      XMPP_MUC_DOMAIN: muc.meet.jitsi
+      # Gate meetings behind SSO at the proxy, or enable Jitsi JWT auth here.
+    networks: [back]
+    depends_on: [prosody]
+
+  prosody:
+    image: jitsi/prosody:stable
+    restart: unless-stopped
+    environment:
+      XMPP_DOMAIN: meet.jitsi
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_MUC_DOMAIN: muc.meet.jitsi
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.jitsi
+      JICOFO_COMPONENT_SECRET: ${JITSI_SECRET}
+      JICOFO_AUTH_USER: focus
+      JICOFO_AUTH_PASSWORD: ${JICOFO_AUTH_PASSWORD}
+      JVB_AUTH_USER: jvb
+      JVB_AUTH_PASSWORD: ${JVB_AUTH_PASSWORD}
+    networks: [back]
+
+  jicofo:
+    image: jitsi/jicofo:stable
+    restart: unless-stopped
+    environment:
+      XMPP_DOMAIN: meet.jitsi
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.jitsi
+      XMPP_SERVER: prosody
+      JICOFO_COMPONENT_SECRET: ${JITSI_SECRET}
+      JICOFO_AUTH_USER: focus
+      JICOFO_AUTH_PASSWORD: ${JICOFO_AUTH_PASSWORD}
+    networks: [back]
+    depends_on: [prosody]
+
+  jvb:
+    image: jitsi/jvb:stable
+    restart: unless-stopped
+    ports:
+      - "10000:10000/udp"   # media (RTP) — open this UDP port on the firewall
+    environment:
+      XMPP_AUTH_DOMAIN: auth.meet.jitsi
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.jitsi
+      XMPP_SERVER: prosody
+      JVB_AUTH_USER: jvb
+      JVB_AUTH_PASSWORD: ${JVB_AUTH_PASSWORD}
+      JVB_BREWERY_MUC: jvbbrewery
+      PUBLIC_URL: https://meet.${DOMAIN}
+    networks: [back]
+    depends_on: [prosody]
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/compose.mail.yml</span><span>Webmail add-on</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Roundcube in front of Mailu / internal mail</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;"># =============================================================================
+#  Add-on: Email / Webmail.
+#  Lightest path = Roundcube webmail in front of an internal mail backend.
+#  For a full self-hosted mail server (SMTP+IMAP+antispam+webmail), generate a
+#  Mailu stack from https://setup.mailu.io and route mail.${DOMAIN} via Caddy.
+#  This stub gives Roundcube pointed at a MAIL_HOST you provide (e.g. Mailu,
+#  or an existing internal Dovecot/Postfix). Add a Caddy block:
+#       mail.{$DOMAIN} { reverse_proxy roundcube:80 }
+#  Run:  docker compose -f docker-compose.yml -f compose.mail.yml up -d
+# =============================================================================
+name: ons-demo
+
+services:
+  roundcube:
+    image: roundcube/roundcubemail:latest
+    restart: unless-stopped
+    environment:
+      ROUNDCUBEMAIL_DEFAULT_HOST: ssl://${MAIL_HOST:-mail.example.com}
+      ROUNDCUBEMAIL_DEFAULT_PORT: "993"
+      ROUNDCUBEMAIL_SMTP_SERVER: tls://${MAIL_HOST:-mail.example.com}
+      ROUNDCUBEMAIL_SMTP_PORT: "587"
+    networks: [back]
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/.env.example</span><span>Secrets template</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Copy to .env; set DOMAIN + every secret</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;"># ---- Public hostname (a wildcard *.DOMAIN must resolve to this server) ----
+DOMAIN=demo.example.com
+ACME_EMAIL=admin@example.com
+
+# ---- Database passwords (change every one) ----
+PG_SUPER_PASSWORD=change-me-postgres-super
+KC_DB_PASSWORD=change-me-keycloak-db
+GITEA_DB_PASSWORD=change-me-gitea-db
+GUAC_DB_PASSWORD=change-me-guacamole-db
+WIKIJS_DB_PASSWORD=change-me-wikijs-db
+NEXTCLOUD_DB_PASSWORD=change-me-nextcloud-db
+
+# ---- Application admin / SSO secrets ----
+KC_ADMIN_PASSWORD=change-me-keycloak-admin
+NEXTCLOUD_ADMIN_PASSWORD=change-me-nextcloud-admin
+GRAFANA_OIDC_SECRET=change-me-grafana-oidc-secret   # must match the 'grafana' client secret in realm-export.json
+
+# ---- Jitsi (only needed with compose.comms.yml) ----
+JICOFO_AUTH_PASSWORD=change-me-jicofo
+JVB_AUTH_PASSWORD=change-me-jvb
+JITSI_SECRET=change-me-jitsi-component
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">demo/realm-export.json</span><span>SSO realm</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Keycloak realm "ons" with OIDC clients pre-defined</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;">{
+  "realm": "ons",
+  "enabled": true,
+  "displayName": "Offline Network System",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "roles": {
+    "realm": [
+      { "name": "user", "description": "Standard user" },
+      { "name": "admin", "description": "Platform administrator" }
+    ]
+  },
+  "groups": [
+    { "name": "staff" },
+    { "name": "operators" }
+  ],
+  "clients": [
+    {
+      "clientId": "guacamole",
+      "name": "Apache Guacamole",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://remote.DOMAIN/*"],
+      "webOrigins": ["https://remote.DOMAIN"],
+      "attributes": { "post.logout.redirect.uris": "+" }
+    },
+    {
+      "clientId": "grafana",
+      "name": "Grafana",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-grafana-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://grafana.DOMAIN/login/generic_oauth"],
+      "webOrigins": ["https://grafana.DOMAIN"]
+    },
+    {
+      "clientId": "gitea",
+      "name": "Gitea",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-gitea-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://git.DOMAIN/user/oauth2/keycloak/callback"],
+      "webOrigins": ["https://git.DOMAIN"]
+    },
+    {
+      "clientId": "wikijs",
+      "name": "Wiki.js",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-wikijs-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://wiki.DOMAIN/login/*/callback"],
+      "webOrigins": ["https://wiki.DOMAIN"]
+    },
+    {
+      "clientId": "nextcloud",
+      "name": "Nextcloud",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-nextcloud-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://files.DOMAIN/apps/user_oidc/code"],
+      "webOrigins": ["https://files.DOMAIN"]
+    }
+  ],
+  "users": [
+    {
+      "username": "demo",
+      "enabled": true,
+      "email": "demo@DOMAIN",
+      "firstName": "Demo",
+      "lastName": "User",
+      "credentials": [{ "type": "password", "value": "changeme", "temporary": true }],
+      "realmRoles": ["user"],
+      "groups": ["/staff"]
+    }
+  ]
+}
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">ansible/site.yml</span><span>Provisioning</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Installs Docker + Compose and brings the stack up</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;"># =============================================================================
+#  Provision the demo cloud server and bring up the stack.
+#  Usage:
+#     ansible-galaxy collection install community.docker
+#     ansible-playbook -i inventory.ini site.yml
+#  Expects the demo/ files (docker-compose.yml, Caddyfile, .env, init-db.sh,
+#  prometheus.yml, realm-export.json, compose.comms.yml) in ../demo relative
+#  to this playbook, and a populated .env (copy from .env.example first).
+# =============================================================================
+- name: Deploy Offline Network System — demo stack
+  hosts: demo
+  become: true
+  vars:
+    app_dir: /opt/ons-demo
+    files:
+      - docker-compose.yml
+      - compose.comms.yml
+      - Caddyfile
+      - init-db.sh
+      - prometheus.yml
+      - realm-export.json
+      - .env
+
+  tasks:
+    - name: Install prerequisites
+      ansible.builtin.apt:
+        name: [ca-certificates, curl, gnupg]
+        update_cache: true
+
+    - name: Add Docker apt key
+      ansible.builtin.shell: |
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+          | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        chmod a+r /etc/apt/keyrings/docker.gpg
+      args:
+        creates: /etc/apt/keyrings/docker.gpg
+
+    - name: Add Docker apt repository
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {<!-- -->{ ansible_distribution_release }<!-- -->} stable"
+        filename: docker
+
+    - name: Install Docker Engine + Compose plugin
+      ansible.builtin.apt:
+        name: [docker-ce, docker-ce-cli, containerd.io, docker-compose-plugin]
+        update_cache: true
+
+    - name: Ensure application directory
+      ansible.builtin.file:
+        path: "{<!-- -->{ app_dir }<!-- -->}"
+        state: directory
+        mode: "0750"
+
+    - name: Copy stack files
+      ansible.builtin.copy:
+        src: "../demo/{<!-- -->{ item }<!-- -->}"
+        dest: "{<!-- -->{ app_dir }<!-- -->}/{<!-- -->{ item }<!-- -->}"
+        mode: "0640"
+      loop: "{<!-- -->{ files }<!-- -->}"
+
+    - name: Make init-db.sh executable
+      ansible.builtin.file:
+        path: "{<!-- -->{ app_dir }<!-- -->}/init-db.sh"
+        mode: "0750"
+
+    - name: Bring up the stack
+      community.docker.docker_compose_v2:
+        project_src: "{<!-- -->{ app_dir }<!-- -->}"
+        files: [docker-compose.yml]
+        state: present
+        pull: always
+</pre>
+
+      <h3 class="avoid-break" style="font-size: 14px; font-weight: 600; margin: 20px 0 2px; display: flex; align-items: center; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #fff; background: var(--accent, #2f5d8a); padding: 2px 6px; border-radius: 3px;">ansible/inventory.ini</span><span>Ansible inventory</span></h3>
+      <p style="font-size: 11.5px; color: var(--muted, #5b606b); margin: 0 0 6px;">Target host(s)</p>
+      <pre style="margin:0;white-space:pre;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.5;color:var(--ink,#1a1c22);background:var(--panel,#f4f6f9);border:1px solid var(--hairline,#d9dce3);border-left:3px solid var(--accent,#2f5d8a);padding:12px 14px;border-radius:2px;tab-size:2;">[demo]
+demo.example.com ansible_user=ubuntu
+
+[demo:vars]
+ansible_python_interpreter=/usr/bin/python3
+</pre>
+
+      <p style="font-size: 11px; color: var(--muted, #5b606b); margin: 18px 0 0; font-family: 'IBM Plex Mono', monospace; letter-spacing: .04em;">END OF DOCUMENT · AIR-GAPPED NETWORK SYSTEM · PROJECT PLAN v1.0 · INTERNAL</p>
+
+    </td></tr></tbody>
+    <tfoot><tr><td class="ftr-space" style="padding: 0; display: none;"></td></tr></tfoot>
+  </table>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2f5d8a&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;paperTone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cool&quot;,&quot;warm&quot;,&quot;neutral&quot;],&quot;default&quot;:&quot;warm&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const tones = {
+      cool:    { paper: '#fcfcfd', ink: '#1a1c22', muted: '#5b606b', hairline: '#d9dce3', panel: '#f4f6f9' },
+      warm:    { paper: '#fbfaf7', ink: '#211f1a', muted: '#6b655b', hairline: '#e3ded4', panel: '#f7f4ee' },
+      neutral: { paper: '#fcfcfc', ink: '#1c1c1e', muted: '#65656a', hairline: '#dededf', panel: '#f5f5f6' },
+    };
+    const tone = tones[this.props.paperTone] || tones.cool;
+    const accentColor = this.props.accentColor || '#2f5d8a';
+    const showGrid = this.props.showGrid !== false;
+    const grid = showGrid
+      ? 'linear-gradient(rgba(96,110,132,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(96,110,132,0.07) 1px, transparent 1px)'
+      : 'none';
+    return {
+      accentColor,
+      paper: tone.paper, ink: tone.ink, muted: tone.muted, hairline: tone.hairline, panel: tone.panel,
+      grid,
+      printDoc: () => window.print(),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "realm": "ons",
+  "enabled": true,
+  "displayName": "Offline Network System",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "roles": {
+    "realm": [
+      { "name": "user", "description": "Standard user" },
+      { "name": "admin", "description": "Platform administrator" }
+    ]
+  },
+  "groups": [
+    { "name": "staff" },
+    { "name": "operators" }
+  ],
+  "clients": [
+    {
+      "clientId": "guacamole",
+      "name": "Apache Guacamole",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://remote.DOMAIN/*"],
+      "webOrigins": ["https://remote.DOMAIN"],
+      "attributes": { "post.logout.redirect.uris": "+" }
+    },
+    {
+      "clientId": "grafana",
+      "name": "Grafana",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-grafana-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://grafana.DOMAIN/login/generic_oauth"],
+      "webOrigins": ["https://grafana.DOMAIN"]
+    },
+    {
+      "clientId": "gitea",
+      "name": "Gitea",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-gitea-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://git.DOMAIN/user/oauth2/keycloak/callback"],
+      "webOrigins": ["https://git.DOMAIN"]
+    },
+    {
+      "clientId": "wikijs",
+      "name": "Wiki.js",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-wikijs-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://wiki.DOMAIN/login/*/callback"],
+      "webOrigins": ["https://wiki.DOMAIN"]
+    },
+    {
+      "clientId": "nextcloud",
+      "name": "Nextcloud",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "change-me-nextcloud-oidc-secret",
+      "standardFlowEnabled": true,
+      "redirectUris": ["https://files.DOMAIN/apps/user_oidc/code"],
+      "webOrigins": ["https://files.DOMAIN"]
+    }
+  ],
+  "users": [
+    {
+      "username": "demo",
+      "enabled": true,
+      "email": "demo@DOMAIN",
+      "firstName": "Demo",
+      "lastName": "User",
+      "credentials": [{ "type": "password", "value": "changeme", "temporary": true }],
+      "realmRoles": ["user"],
+      "groups": ["/staff"]
+    }
+  ]
+}

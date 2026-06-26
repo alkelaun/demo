@@ -1,0 +1,22 @@
+# =============================================================================
+#  Add-on: Email / Webmail.
+#  Lightest path = Roundcube webmail in front of an internal mail backend.
+#  For a full self-hosted mail server (SMTP+IMAP+antispam+webmail), generate a
+#  Mailu stack from https://setup.mailu.io and route mail.${DOMAIN} via Caddy.
+#  This stub gives Roundcube pointed at a MAIL_HOST you provide (e.g. Mailu,
+#  or an existing internal Dovecot/Postfix). Add a Caddy block:
+#       mail.{$DOMAIN} { reverse_proxy roundcube:80 }
+#  Run:  docker compose -f docker-compose.yml -f compose.mail.yml up -d
+# =============================================================================
+name: ons-demo
+
+services:
+  roundcube:
+    image: roundcube/roundcubemail:latest
+    restart: unless-stopped
+    environment:
+      ROUNDCUBEMAIL_DEFAULT_HOST: ssl://${MAIL_HOST:-mail.example.com}
+      ROUNDCUBEMAIL_DEFAULT_PORT: "993"
+      ROUNDCUBEMAIL_SMTP_SERVER: tls://${MAIL_HOST:-mail.example.com}
+      ROUNDCUBEMAIL_SMTP_PORT: "587"
+    networks: [back]

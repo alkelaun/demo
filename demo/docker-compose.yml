@@ -1,0 +1,210 @@
+# =============================================================================
+#  Offline Network System — DEMO / DEV stack  (internet-connected, 5–15 users)
+# -----------------------------------------------------------------------------
+#  One cloud VM (recommend 4 vCPU / 16 GB RAM / 100 GB SSD, Ubuntu 22.04+).
+#  This Docker Compose stack is the LIGHTWEIGHT equivalent of the production
+#  platform: same tools (Keycloak, Gitea, Guacamole, Wiki.js, Nextcloud,
+#  Prometheus/Grafana) wired for Single Sign-On, behind Caddy with automatic
+#  TLS. Production uses K3s + the internal registry; this is the demo/dev twin.
+#
+#  Quick start:
+#     cp .env.example .env        # then edit secrets + DOMAIN
+#     ./init-guacamole-db.sh      # one-time: generate Guacamole schema (see README)
+#     docker compose up -d
+#  Add real-time comms (Jitsi):
+#     docker compose -f docker-compose.yml -f compose.comms.yml up -d
+# =============================================================================
+name: ons-demo
+
+x-restart: &restart
+  restart: unless-stopped
+
+networks:
+  edge: {}
+  back: {}
+
+volumes:
+  caddy_data: {}
+  caddy_config: {}
+  pg_data: {}
+  gitea_data: {}
+  nextcloud_data: {}
+  grafana_data: {}
+  prometheus_data: {}
+
+services:
+  # ---------------------------------------------------------------- proxy + TLS
+  caddy:
+    image: caddy:2
+    <<: *restart
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [edge, back]
+
+  # ------------------------------------------ shared Postgres (one DB per app)
+  postgres:
+    image: postgres:16
+    <<: *restart
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PG_SUPER_PASSWORD}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      GITEA_DB_PASSWORD: ${GITEA_DB_PASSWORD}
+      GUAC_DB_PASSWORD: ${GUAC_DB_PASSWORD}
+      WIKIJS_DB_PASSWORD: ${WIKIJS_DB_PASSWORD}
+      NEXTCLOUD_DB_PASSWORD: ${NEXTCLOUD_DB_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    networks: [back]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------- identity provider (OIDC+SAML)
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    <<: *restart
+    command: start --import-realm
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_HOSTNAME: id.${DOMAIN}
+      KC_PROXY_HEADERS: xforwarded
+      KC_HTTP_ENABLED: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
+    volumes:
+      - ./realm-export.json:/opt/keycloak/data/import/realm.json:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # --------------------------------------------- source code + Infra-as-Code
+  gitea:
+    image: gitea/gitea:1.22
+    <<: *restart
+    environment:
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: postgres:5432
+      GITEA__database__NAME: gitea
+      GITEA__database__USER: gitea
+      GITEA__database__PASSWD: ${GITEA_DB_PASSWORD}
+      GITEA__server__DOMAIN: git.${DOMAIN}
+      GITEA__server__ROOT_URL: https://git.${DOMAIN}/
+      GITEA__service__DISABLE_REGISTRATION: "true"
+      # SSO: Site Admin → Authentication Sources → add OAuth2 (OpenID Connect)
+      #      Issuer: https://id.${DOMAIN}/realms/ons   Client: gitea
+    volumes:
+      - gitea_data:/data
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # -------------------------------------------- clientless remote-access gateway
+  guacd:
+    image: guacamole/guacd:1.5.5
+    <<: *restart
+    networks: [back]
+  guacamole:
+    image: guacamole/guacamole:1.5.5
+    <<: *restart
+    environment:
+      GUACD_HOSTNAME: guacd
+      POSTGRESQL_HOSTNAME: postgres
+      POSTGRESQL_DATABASE: guacamole
+      POSTGRESQL_USER: guacamole
+      POSTGRESQL_PASSWORD: ${GUAC_DB_PASSWORD}
+      WEBAPP_CONTEXT: ROOT
+      # ---- SSO via Keycloak (OpenID Connect) ----
+      OPENID_AUTHORIZATION_ENDPOINT: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/auth
+      OPENID_JWKS_ENDPOINT: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/certs
+      OPENID_ISSUER: https://id.${DOMAIN}/realms/ons
+      OPENID_CLIENT_ID: guacamole
+      OPENID_REDIRECT_URI: https://remote.${DOMAIN}/
+      OPENID_USERNAME_CLAIM_TYPE: preferred_username
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # ---------------------------------------------------------------------- wiki
+  wikijs:
+    image: ghcr.io/requarks/wiki:2
+    <<: *restart
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: wikijs
+      DB_USER: wikijs
+      DB_PASS: ${WIKIJS_DB_PASSWORD}
+      # SSO: Admin → Authentication → add OpenID Connect (issuer .../realms/ons)
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # ----------------------------------------------- file share (WebDAV + web UI)
+  nextcloud:
+    image: nextcloud:29-apache
+    <<: *restart
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: ${NEXTCLOUD_DB_PASSWORD}
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: files.${DOMAIN}
+      OVERWRITEPROTOCOL: https
+      TRUSTED_PROXIES: caddy
+      # WebDAV endpoint: https://files.${DOMAIN}/remote.php/dav/files/<user>/
+      # SSO: install the 'user_oidc' app, point it at .../realms/ons
+    volumes:
+      - nextcloud_data:/var/www/html
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [back]
+
+  # ---------------------------------------------------------------- monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    <<: *restart
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks: [back]
+  grafana:
+    image: grafana/grafana:latest
+    <<: *restart
+    environment:
+      GF_SERVER_ROOT_URL: https://grafana.${DOMAIN}
+      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+      GF_AUTH_GENERIC_OAUTH_NAME: Keycloak
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_OIDC_SECRET}
+      GF_AUTH_GENERIC_OAUTH_SCOPES: openid email profile
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/auth
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/token
+      GF_AUTH_GENERIC_OAUTH_API_URL: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/userinfo
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on: [prometheus]
+    networks: [back]
+  node-exporter:
+    image: prom/node-exporter:latest
+    <<: *restart
+    networks: [back]
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    <<: *restart
+    networks: [back]
