@@ -84,6 +84,8 @@ services:
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
       KC_PROXY_HEADERS: xforwarded
       KC_HTTP_ENABLED: "true"
+      KC_SPI_STICKY_SESSION_ENCODER_INFINISPAN_SHOULD_ATTACH_ROUTE: "false"
+      KC_FEATURES_DISABLED: check-session-iframe
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
     volumes:
@@ -104,7 +106,8 @@ services:
       GITEA__database__PASSWD: ${GITEA_DB_PASSWORD}
       GITEA__server__DOMAIN: git.${DOMAIN}
       GITEA__server__ROOT_URL: https://git.${DOMAIN}/
-      GITEA__service__DISABLE_REGISTRATION: "true"
+      GITEA__service__DISABLE_REGISTRATION: "false"
+      GITEA__service__ALLOW_ONLY_EXTERNAL_REGISTRATION: "true"
       GITEA__security__INSTALL_LOCK: "true"
       # SSO: Site Admin → Authentication Sources → add OAuth2 (OpenID Connect)
       #      Issuer: https://id.${DOMAIN}/realms/ons   Client: gitea
@@ -131,7 +134,7 @@ services:
       WEBAPP_CONTEXT: ROOT
       # ---- SSO via Keycloak (OpenID Connect) ----
       OPENID_AUTHORIZATION_ENDPOINT: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/auth
-      OPENID_JWKS_ENDPOINT: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/certs
+      OPENID_JWKS_ENDPOINT: http://keycloak:8080/realms/ons/protocol/openid-connect/certs
       OPENID_ISSUER: https://id.${DOMAIN}/realms/ons
       OPENID_CLIENT_ID: guacamole
       OPENID_REDIRECT_URI: https://remote.${DOMAIN}/
