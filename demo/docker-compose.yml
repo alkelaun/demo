@@ -196,7 +196,7 @@ services:
       GF_AUTH_GENERIC_OAUTH_NAME: Keycloak
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_OIDC_SECRET}
-      GF_AUTH_GENERIC_OAUTH_SCOPES: openid email profile groups
+      GF_AUTH_GENERIC_OAUTH_SCOPES: openid email profile
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://id.${DOMAIN}/realms/ons/protocol/openid-connect/auth
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://keycloak:8080/realms/ons/protocol/openid-connect/token
       GF_AUTH_GENERIC_OAUTH_API_URL: http://keycloak:8080/realms/ons/protocol/openid-connect/userinfo

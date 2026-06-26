@@ -23,7 +23,6 @@ gitea admin auth add-oauth \
   --scopes openid \
   --scopes email \
   --scopes profile \
-  --scopes groups \
   --admin-group admin \
   --group-team-map-removal=false
 
