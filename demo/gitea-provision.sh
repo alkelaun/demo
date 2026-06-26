@@ -1,6 +1,4 @@
 #!/bin/sh
-# Adds Keycloak as an OAuth2 source in Gitea using the Gitea CLI.
-# Must run as the 'git' user inside a container sharing the gitea_data volume.
 set -eu
 
 printf 'Waiting for Gitea ...'
@@ -24,6 +22,9 @@ gitea admin auth add-oauth \
   --auto-discover-url "http://keycloak:8080/realms/ons/.well-known/openid-configuration" \
   --scopes openid \
   --scopes email \
-  --scopes profile
+  --scopes profile \
+  --scopes groups \
+  --admin-group admin \
+  --group-team-map-removal=false
 
 echo 'Gitea: Keycloak OAuth2 source configured'
