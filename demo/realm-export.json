@@ -44,7 +44,7 @@
       "publicClient": false,
       "secret": "SeQI42f4ab6kcU3tRMQ4xRHgoxIAwpz",
       "standardFlowEnabled": true,
-      "redirectUris": ["https://git.127.0.0.1.nip.io/user/oauth2/keycloak/callback"],
+      "redirectUris": ["https://git.127.0.0.1.nip.io/user/oauth2/Keycloak/callback"],
       "webOrigins": ["https://git.127.0.0.1.nip.io"]
     },
     {
